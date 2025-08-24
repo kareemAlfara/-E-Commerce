@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/features/onboard/presentation/view/page_view_item.dart';
 import 'package:fruits_hub/features/splash/presentation/view/splash_view.dart';
 
 class OnGenerateRoutes {
@@ -6,6 +7,8 @@ class OnGenerateRoutes {
     switch (settings.name) {
       case SplashView.routeName:
         return MaterialPageRoute(builder: (_) => const SplashView());
+      case Onboarding.routeName:
+        return MaterialPageRoute(builder: (_) => const Onboarding());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }
