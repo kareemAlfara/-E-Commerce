@@ -14,11 +14,13 @@ Widget defulttext({
   FontWeight? fw,
   int? maxLines = 4,
 }) => Text(
+  
   textAlign: textAlign,
   textDirection: textDirection,
   maxLines: maxLines,
   data,
   style: TextStyle(
+    fontFamily: 'Cairo',
     fontSize: fSize,
     color: color,
     fontWeight: fw,

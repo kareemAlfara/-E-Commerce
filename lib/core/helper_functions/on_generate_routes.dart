@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/features/onboard/presentation/view/page_view_item.dart';
+import 'package:fruits_hub/features/onboard/presentation/view/onboarding.dart';
 import 'package:fruits_hub/features/splash/presentation/view/splash_view.dart';
 
 class OnGenerateRoutes {

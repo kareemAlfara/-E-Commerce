@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/helper_functions/on_generate_routes.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
-import 'package:fruits_hub/features/onboard/presentation/view/page_view_item.dart';
+import 'package:fruits_hub/features/onboard/presentation/view/widget/page_view_item.dart';
 import 'package:fruits_hub/features/splash/presentation/view/splash_view.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'features/onboard/presentation/view/onboarding.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
