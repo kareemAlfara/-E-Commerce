@@ -14,7 +14,7 @@ class OnboardPageview extends StatelessWidget {
       children: [
         page_view_item(
           isVisible: true,
-          backgroundImage: Assets.imagesPageViewItem2BackgroundImage,
+          backgroundImage: Assets.imagesPageViewItem1BackgroundImage,
          foregroundImage: Assets.imagesPageViewItem1Image,
           title:   Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,8 +48,8 @@ class OnboardPageview extends StatelessWidget {
           subtitle:   'اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.',)
     ,  page_view_item(
       isVisible: false,
-      backgroundImage: Assets.imagesPageViewItem2Image,
-         foregroundImage: Assets.imagesPageViewItem1Image,
+      backgroundImage: Assets.imagesPageViewItem2BackgroundImage,
+         foregroundImage: Assets.imagesPageViewItem2Image,
           title:   Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

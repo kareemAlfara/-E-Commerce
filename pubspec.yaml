@@ -32,8 +32,11 @@ dependencies:
   dots_indicator: ^4.0.1
   flutter:
     sdk: flutter
+  flutter_bloc: ^9.1.1
   flutter_localization: ^0.3.3
   flutter_svg_provider: ^1.0.7
+  pin_code_fields: ^8.0.1
+  shared_preferences: ^2.5.3
   svg_flutter: ^0.0.1
 
 dev_dependencies:

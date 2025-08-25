@@ -32,9 +32,10 @@ Widget defulitTextFormField({
   String? hintText,
   Widget? suffixIcon,
   Widget? label,
-  Color? textcolor = Colors.white,
+  TextInputType? keyboardType=TextInputType.multiline,
+  Color? textcolor = Colors.black,
   // Color? bordercolor=Colors.white,
-  Color bordercolor = Colors.white,
+  Color bordercolor = Colors.black,
   void Function(String)? onChanged,
   TextInputAction? textInputAction,
   TextEditingController? controller,
@@ -44,7 +45,8 @@ Widget defulitTextFormField({
   bool filled = false, // Important: enables fillColor
   Color? fillColor, // Inside color
 }) => TextFormField(
-  keyboardType: TextInputType.multiline,
+
+  keyboardType: keyboardType,
   obscureText: isobscure,
   onFieldSubmitted: onFieldSubmitted,
   maxLines: maxline,
@@ -53,22 +55,24 @@ Widget defulitTextFormField({
   textInputAction: textInputAction,
   controller: controller,
   style: TextStyle(color: textcolor),
+  
   decoration: InputDecoration(
-    hintStyle: TextStyle(color: Colors.black),
+    
+    hintStyle: TextStyle(color: Colors.grey),
     filled: filled, // Important: enables fillColor
     fillColor: fillColor, // Inside color
     hintText: hintText,
     suffixIcon: suffixIcon,
     label: label,
     labelText: title,
-    labelStyle: TextStyle(color: Colors.white),
+    labelStyle: TextStyle(color: Colors.black),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.circular(4),
+      borderSide: BorderSide(color: Colors.black),
     ),
     // focusColor: Colors.white,
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(4),
 
       borderSide: BorderSide(color: Colors.black),
     ),
