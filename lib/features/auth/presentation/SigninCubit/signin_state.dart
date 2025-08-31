@@ -31,3 +31,20 @@ final class LogoutFailureState extends Signinstate {
 
   LogoutFailureState({required this.error});
 }
+final class changeNewpassword2iconstate extends Signinstate {}
+final class changeNewpassword1iconstate extends Signinstate {}
+final class SigninSuccessState extends Signinstate {}
+final class SigninLoadingState extends Signinstate {} 
+final class SigninErrorState extends Signinstate {
+  final String error;
+
+  SigninErrorState({required this.error});
+}
+final class GoogleSigninSuccessState extends Signinstate {} 
+final class GoogleSigninLoadingState extends Signinstate {} 
+final class GoogleSigninFailureState extends Signinstate {
+  final String error;
+
+  GoogleSigninFailureState({required this.error});
+}
+final class signoutState extends Signinstate {} 

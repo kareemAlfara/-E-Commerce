@@ -3,6 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/AuthAppbar.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
+import 'package:fruits_hub/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:fruits_hub/features/auth/domain/usecases/Google_Signin.dart';
+import 'package:fruits_hub/features/auth/domain/usecases/signin_user.dart';
+import 'package:fruits_hub/features/auth/domain/usecases/signout.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../SigninCubit/signin_cubit.dart';
@@ -14,13 +18,19 @@ class VerificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SigninCubit(),
+      create: (context) => SigninCubit(
+          SigninUser( AuthRepoImpl()),
+        SigninWithGoogle( AuthRepoImpl()),
+        Signout( AuthRepoImpl()),
+      ),
+
       child: BlocConsumer<SigninCubit, Signinstate>(
         listener: (context, state) {
           // TODO: implement listener
         },
         builder: (context, state) {
-          var cubit = SigninCubit().get(context);
+          // var cubit = SigninCubit().get(context);
+          var cubit = context.read<SigninCubit>();
           return Scaffold(
             appBar: AuthAppbar(title:   "التحقق من الرمز", context: context),
             body: Column(

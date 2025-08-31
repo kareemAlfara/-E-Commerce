@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart' show Fluttertoast;
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/AuthAppbar.dart';
 import 'package:fruits_hub/core/widget/SignigContainer.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
+import 'package:fruits_hub/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:fruits_hub/features/auth/domain/usecases/Google_Signin.dart';
+import 'package:fruits_hub/features/auth/domain/usecases/signin_user.dart';
+import 'package:fruits_hub/features/auth/domain/usecases/signout.dart';
 import 'package:fruits_hub/features/auth/presentation/SigninCubit/signin_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
+import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:svg_flutter/svg.dart';
 
 import 'forgetPassword.dart';
@@ -19,13 +25,36 @@ class Signinview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SigninCubit(),
+      create: (context) => SigninCubit(
+        SigninUser(AuthRepoImpl()),
+        SigninWithGoogle(AuthRepoImpl()),
+        Signout(AuthRepoImpl()),
+      ),
       child: BlocConsumer<SigninCubit, Signinstate>(
         listener: (context, state) {
+          if (state is GoogleSigninLoadingState) {
+            Fluttertoast.showToast(
+              msg: 'جاري إنشاء الحساب',
+              backgroundColor: Colors.amber,
+            );
+          } else if (state is GoogleSigninSuccessState ||
+              state is SigninSuccessState) {
+            Navigator.pushReplacementNamed(context, Home.routeName);
+            Fluttertoast.showToast(
+              msg: 'تم إنشاء الحساب بنجاح',
+              backgroundColor: Colors.green,
+            );
+          } else if (state is GoogleSigninFailureState) {
+            Fluttertoast.showToast(
+              msg: state.error,
+              backgroundColor: Colors.red,
+            );
+          }
           // TODO: implement listener
         },
         builder: (context, state) {
-          var cubit = SigninCubit().get(context);
+          // var cubit = SigninCubit().get(context);
+          var cubit = context.read<SigninCubit>();
           return Scaffold(
             appBar: AuthAppbar(title: 'تسجيل الدخول', context: context),
             body: SingleChildScrollView(
@@ -105,6 +134,10 @@ class Signinview extends StatelessWidget {
                         onPressed: () {
                           if (cubit.formkey.currentState!.validate()) {
                             // Handle login
+                            cubit.userSigninWithEmailAndPassword(
+                              email: cubit.emailcontroller.text,
+                              password: cubit.passcontroller.text,
+                            );
                           }
                         },
                       ),
@@ -160,7 +193,9 @@ class Signinview extends StatelessWidget {
                     ),
                     SizedBox(height: 11),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        cubit.signInWithGoogle();
+                      },
                       child: sgininContainer(
                         icon: Assets.imagesGoogleIcon,
                         text: 'تسجيل  بواسطة جوجل',
@@ -191,5 +226,3 @@ class Signinview extends StatelessWidget {
     );
   }
 }
-
-

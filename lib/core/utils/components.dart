@@ -44,6 +44,7 @@ Widget defulitTextFormField({
   bool isobscure = false,
   bool filled = false, // Important: enables fillColor
   Color? fillColor, // Inside color
+  Widget? prefix,
 }) => TextFormField(
 
   keyboardType: keyboardType,
@@ -57,7 +58,7 @@ Widget defulitTextFormField({
   style: TextStyle(color: textcolor),
   
   decoration: InputDecoration(
-    
+    prefix: prefix,
     hintStyle: TextStyle(color: Colors.grey),
     filled: filled, // Important: enables fillColor
     fillColor: fillColor, // Inside color
@@ -68,13 +69,13 @@ Widget defulitTextFormField({
     labelStyle: TextStyle(color: Colors.black),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
-      borderSide: BorderSide(color: Colors.black),
+      borderSide: BorderSide(color: bordercolor),
     ),
     // focusColor: Colors.white,
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
 
-      borderSide: BorderSide(color: Colors.black),
+      borderSide: BorderSide(color: bordercolor,
     ),
-  ),
+  ),)
 );
