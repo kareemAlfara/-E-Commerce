@@ -16,6 +16,7 @@ import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:svg_flutter/svg.dart';
 
+import '../../domain/usecases/facebookSignin.dart';
 import 'forgetPassword.dart';
 
 class Signinview extends StatelessWidget {
@@ -29,6 +30,7 @@ class Signinview extends StatelessWidget {
         SigninUser(AuthRepoImpl()),
         SigninWithGoogle(AuthRepoImpl()),
         Signout(AuthRepoImpl()),
+        FacebookSignin(AuthRepoImpl()),
       ),
       child: BlocConsumer<SigninCubit, Signinstate>(
         listener: (context, state) {
@@ -38,7 +40,7 @@ class Signinview extends StatelessWidget {
               backgroundColor: Colors.amber,
             );
           } else if (state is GoogleSigninSuccessState ||
-              state is SigninSuccessState) {
+              state is SigninSuccessState || state is FacebookSigninSuccessState) {
             Navigator.pushReplacementNamed(context, Home.routeName);
             Fluttertoast.showToast(
               msg: 'تم إنشاء الحساب بنجاح',
@@ -210,7 +212,9 @@ class Signinview extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        cubit.signInWithFacebook();
+                      },
                       child: sgininContainer(
                         icon: Assets.imagesFacebookIcon,
                         text: 'تسجيل  بواسطة فيسبوك',

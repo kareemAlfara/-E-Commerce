@@ -8,13 +8,15 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
 class FeatureItem extends StatelessWidget {
   const FeatureItem({
     super.key,
-    required this.itemWidth,
+  
   });
 
-  final double itemWidth;
+
 
   @override
   Widget build(BuildContext context) {
+    var itemWidth = MediaQuery.sizeOf(context).width - 32;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
@@ -76,8 +78,6 @@ class FeatureItem extends StatelessWidget {
                            fSize: 16,
                          ),
                        ),
-                 
-                   
                  ],
                ),
              ),

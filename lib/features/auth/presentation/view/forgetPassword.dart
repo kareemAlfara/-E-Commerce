@@ -5,6 +5,7 @@ import 'package:fruits_hub/core/widget/AuthAppbar.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
 import 'package:fruits_hub/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/Google_Signin.dart';
+import 'package:fruits_hub/features/auth/domain/usecases/facebookSignin.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/signin_user.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/signout.dart';
 import 'package:fruits_hub/features/auth/presentation/SigninCubit/signin_cubit.dart';
@@ -21,6 +22,7 @@ class ForgetPasswordView extends StatelessWidget {
         SigninUser( AuthRepoImpl()),
         SigninWithGoogle( AuthRepoImpl()),
         Signout( AuthRepoImpl()),  
+        FacebookSignin( AuthRepoImpl()),
       ),
       child: BlocConsumer<SigninCubit, Signinstate>(
         listener: (context, state) {

@@ -5,6 +5,11 @@ class Assets {
   /// Assets for imagesAppIcon
   /// assets/images/app_icon.png
   static const String imagesAppIcon = "assets/images/app_icon.png";
+  static const String imagesMango = "assets/images/mango.svg";
+  static const String imagesBanana = "assets/images/Bitmap.svg";
+  static const String imagesPinApple = "assets/images/pinapple.png";
+  static const String imagesStrawberry = "assets/images/image29.svg";
+  static const String imagesAvocado = "assets/images/Avocado.svg";
 
   /// Assets for imagesApplIcon
   /// assets/images/appl_icon.svg

@@ -48,3 +48,11 @@ final class GoogleSigninFailureState extends Signinstate {
   GoogleSigninFailureState({required this.error});
 }
 final class signoutState extends Signinstate {} 
+
+final class FacebookSigninSuccessState extends Signinstate {}
+final class FacebookSigninLoadingState extends Signinstate {}
+final class FacebookSigninFailureState extends Signinstate {
+  final String error;
+
+  FacebookSigninFailureState({required this.error});
+}

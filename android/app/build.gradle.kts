@@ -42,3 +42,7 @@ android {
 flutter {
     source = "../.."
 }
+dependencies {
+    implementation("com.facebook.android:facebook-login:latest.release")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0")
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:fruits_hub/features/auth/domain/entites/user_entity.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/Google_Signin.dart';
+import 'package:fruits_hub/features/auth/domain/usecases/facebookSignin.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/signin_user.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/signout.dart';
 import 'package:meta/meta.dart';
@@ -13,10 +14,12 @@ class SigninCubit extends Cubit<Signinstate> {
   final SigninUser signinUserUseCase;
   final SigninWithGoogle signinWithGoogleUseCase;
   final Signout signoutUserUseCase;
+  final FacebookSignin facebookSigninUseCase;
   SigninCubit(
     this.signinUserUseCase,
     this.signinWithGoogleUseCase,
     this.signoutUserUseCase,
+    this.facebookSigninUseCase,
   ) : super(LoginInitial());
   var formkey = GlobalKey<FormState>();
   var phoneController = TextEditingController();
@@ -67,6 +70,30 @@ class SigninCubit extends Cubit<Signinstate> {
       emit(
         GoogleSigninFailureState(
           error: 'Google Sign-In failed: ${error.toString()}',
+        ),
+      );
+
+      // Try to sign out in case of partial sign-in
+      try {
+        await AuthRepoImpl().signout();
+      } catch (signOutError) {
+        debugPrint('Sign-out error: $signOutError');
+      }
+
+      return null;
+    }
+  }
+  Future<void> signInWithFacebook() async {
+    emit(FacebookSigninLoadingState());
+
+    try {
+      final UserEntity user = await facebookSigninUseCase();
+      emit(FacebookSigninSuccessState());
+    } catch (error) {
+      debugPrint('Facebook Sign-In Error: $error');
+      emit(
+        FacebookSigninFailureState(
+          error: 'Facebook Sign-In failed: ${error.toString()}',
         ),
       );
 

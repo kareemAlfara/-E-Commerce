@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/helper_functions/on_generate_routes.dart';
 import 'package:fruits_hub/core/services/Shared_preferences.dart';
 import 'package:fruits_hub/core/services/custom_bloc_observer.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
+import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:fruits_hub/generated/l10n.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('ar'),
       onGenerateRoute: OnGenerateRoutes.generateRoute,
-      initialRoute: Home.routeName,
+      initialRoute: Signinview.routeName,
       debugShowCheckedModeBanner: false,
     );
   }
