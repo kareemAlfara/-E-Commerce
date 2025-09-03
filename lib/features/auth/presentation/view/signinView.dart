@@ -34,23 +34,25 @@ class Signinview extends StatelessWidget {
       ),
       child: BlocConsumer<SigninCubit, Signinstate>(
         listener: (context, state) {
-          if (state is GoogleSigninLoadingState) {
+          if (state is GoogleSigninLoadingState|| state is FacebookSigninLoadingState) {
             Fluttertoast.showToast(
               msg: 'جاري إنشاء الحساب',
               backgroundColor: Colors.amber,
             );
           } else if (state is GoogleSigninSuccessState ||
               state is SigninSuccessState || state is FacebookSigninSuccessState) {
-            Navigator.pushReplacementNamed(context, Home.routeName);
+          
             Fluttertoast.showToast(
               msg: 'تم إنشاء الحساب بنجاح',
               backgroundColor: Colors.green,
             );
+              Navigator.pushReplacementNamed(context, Home.routeName);
           } else if (state is GoogleSigninFailureState) {
             Fluttertoast.showToast(
               msg: state.error,
               backgroundColor: Colors.red,
             );
+            
           }
           // TODO: implement listener
         },
