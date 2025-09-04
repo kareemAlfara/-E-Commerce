@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+String? uid;
 
 Future<dynamic> navigat(context, {required Widget widget}) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));

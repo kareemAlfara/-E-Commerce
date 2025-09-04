@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Prefs{
   static late SharedPreferences _instance;
@@ -16,5 +17,11 @@ class Prefs{
   static bool getBool(String key) {
     return _instance.getBool(key) ?? false;
   }
-
+static Future<void> saveUserIdToPrefs() async {
+  final prefs = await SharedPreferences.getInstance();
+  final userId = Supabase.instance.client.auth.currentUser?.id;
+  if (userId != null) {
+    await prefs.setString('user_id', userId);
+  }
+}
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart' show Fluttertoast;
+import 'package:fruits_hub/core/services/Shared_preferences.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
@@ -33,7 +34,7 @@ class Signinview extends StatelessWidget {
         FacebookSignin(AuthRepoImpl()),
       ),
       child: BlocConsumer<SigninCubit, Signinstate>(
-        listener: (context, state) {
+        listener: (context, state) async{
           if (state is GoogleSigninLoadingState|| state is FacebookSigninLoadingState) {
             Fluttertoast.showToast(
               msg: 'جاري إنشاء الحساب',
@@ -41,6 +42,7 @@ class Signinview extends StatelessWidget {
             );
           } else if (state is GoogleSigninSuccessState ||
               state is SigninSuccessState || state is FacebookSigninSuccessState) {
+            await Prefs.saveUserIdToPrefs();
           
             Fluttertoast.showToast(
               msg: 'تم إنشاء الحساب بنجاح',

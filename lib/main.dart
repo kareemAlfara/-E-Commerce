@@ -7,9 +7,13 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
+import 'package:fruits_hub/features/onboard/presentation/view/onboarding.dart';
+import 'package:fruits_hub/features/splash/presentation/view/splash_view.dart';
 import 'package:fruits_hub/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 void main(List<String> args) async {
   await WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = CustomBlocObserver();
@@ -20,12 +24,15 @@ void main(List<String> args) async {
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1dWR2cmZ0eXNjcGxoZnd6eGxpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyMDg3MDksImV4cCI6MjA3MTc4NDcwOX0.coxogvY2IS51RAZ4gJAtaUNhX4ZtxEifHwnWBhO1U_8",
   );
   await Prefs.init();
-  runApp(const MyApp());
+  final prefs = await SharedPreferences.getInstance();
+  final userId = prefs.getString('user_id');
+  runApp(MyApp(isLoggedIn: userId != null));
+  // runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.isLoggedIn});
+  final bool isLoggedIn;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,7 +50,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('ar'),
       onGenerateRoute: OnGenerateRoutes.generateRoute,
-      initialRoute: Signinview.routeName,
+      initialRoute: isLoggedIn ? Home.routeName : SplashView.routeName,
+
       debugShowCheckedModeBanner: false,
     );
   }

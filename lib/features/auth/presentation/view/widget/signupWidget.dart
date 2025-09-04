@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_hub/core/services/Shared_preferences.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
@@ -23,12 +24,14 @@ class SignupbodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignupCubit, SignupState>(
-      listener: (context, state) {
+      listener: (context, state)async {
         if (state is SignupLoadingState) {
                       Fluttertoast.showToast(
     msg: 'جاري إنشاء الحساب',backgroundColor: Colors.amber);
         } else if (state is SignupSuccessState) {
           Navigator.popAndPushNamed(context, Signinview.routeName);
+            await Prefs.saveUserIdToPrefs ();
+
           Fluttertoast.showToast(
             msg: 'تم إنشاء الحساب بنجاح',
             backgroundColor: Colors.green,

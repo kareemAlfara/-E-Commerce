@@ -4,6 +4,7 @@ import 'package:fruits_hub/features/auth/presentation/view/newpassword.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/themostSale.dart';
 import 'package:fruits_hub/features/onboard/presentation/view/onboarding.dart';
 import 'package:fruits_hub/features/splash/presentation/view/splash_view.dart';
 
@@ -28,6 +29,8 @@ class OnGenerateRoutes {
         return MaterialPageRoute(builder: (_) => const NewPassword());
       case Home.routeName:
         return MaterialPageRoute(builder: (_) => const Home());
+      case TheMostSale.routeName:
+        return MaterialPageRoute(builder: (_) => const TheMostSale());
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     } 
