@@ -8,6 +8,7 @@ import 'package:fruits_hub/features/auth/domain/usecases/signin_user.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/signout.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 part 'signin_state.dart';
 
 class SigninCubit extends Cubit<Signinstate> {
@@ -52,19 +53,19 @@ class SigninCubit extends Cubit<Signinstate> {
       emit(SigninLoadingState());
       try {
         final UserEntity user = await signinUserUseCase(email, password);
-        emit(SigninSuccessState());
+        emit(SigninSuccessState(user: user));
       } catch (e) {
         emit(SigninErrorState(error: e.toString()));
       }
     }
   }
 
-  Future<void> signInWithGoogle() async  {
+  Future<void> signInWithGoogle() async {
     emit(GoogleSigninLoadingState());
 
     try {
       final UserEntity user = await signinWithGoogleUseCase();
-      emit(GoogleSigninSuccessState());
+      emit(GoogleSigninSuccessState(user: user));
     } catch (error) {
       debugPrint('Google Sign-In Error: $error');
       emit(
@@ -83,12 +84,13 @@ class SigninCubit extends Cubit<Signinstate> {
       return null;
     }
   }
+
   Future<void> signInWithFacebook() async {
     emit(FacebookSigninLoadingState());
 
     try {
       final UserEntity user = await facebookSigninUseCase();
-      emit(FacebookSigninSuccessState());
+      emit(FacebookSigninSuccessState(user: user));
     } catch (error) {
       debugPrint('Facebook Sign-In Error: $error');
       emit(
@@ -116,6 +118,23 @@ class SigninCubit extends Cubit<Signinstate> {
     }
   }
 
+  // final List<Usersmodel> _allUsers = [];
+  // List<Usersmodel> get allUsers => _allUsers;
+  // Future<void> fetchAllUsers() async {
+  //   final response = await Supabase.instance.client.from('users').select();
+
+  //   _allUsers.clear();
+  //   for (var row in response) {
+  //     _allUsers.add(
+  //       Usersmodel.fromJson(row)
+  //     );
+  //   }
+  // }
+  Future<String> getusername()async {
+    final prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username')!;
+    return username;
+  }
   @override
   Future<void> close() {
     phoneController.dispose();

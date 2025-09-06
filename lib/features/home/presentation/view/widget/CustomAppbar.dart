@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
-import 'package:fruits_hub/features/auth/data/models/usersModel.dart';
 import 'package:fruits_hub/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/Google_Signin.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/facebookSignin.dart';
@@ -25,10 +24,20 @@ class CustomAppbarWidget extends StatelessWidget {
         FacebookSignin(AuthRepoImpl()),
       ),
       child: BlocConsumer<SigninCubit, Signinstate>(
-        listener: (context, state) {},
+        listener: (context, state) {
+        
+        },
         builder: (context, state) {
           var cubit = context.read<SigninCubit>();
-          Usersmodel ?usersmodel;
+  String name = 'Gester';
+          if (state is SigninSuccessState) {
+            name = state.user.name;
+          } else if (state is GoogleSigninSuccessState) {
+            name = state.user.name;
+          } else if (state is FacebookSigninSuccessState) {
+            name = state.user.name;
+          }
+          
           return Row(
             children: [
               CircleAvatar(
@@ -45,11 +54,30 @@ class CustomAppbarWidget extends StatelessWidget {
                     fw: FontWeight.w600,
                   ),
                   SizedBox(height: 3),
-                  defulttext(
-                    data: "محمود صالخ",
-                    fSize: 19,
-                    fw: FontWeight.w600,
-                  ),
+                FutureBuilder<String>(
+  future: cubit.getusername(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return defulttext(
+        data: "...",
+        fSize: 19,
+        fw: FontWeight.w600,
+      );
+    }
+    if (snapshot.hasData) {
+      return defulttext(
+        data: snapshot.data!,
+        fSize: 19,
+        fw: FontWeight.w600,
+      );
+    }
+    return defulttext(
+      data: "ضيف جديد",
+      fSize: 19,
+      fw: FontWeight.w600,
+    );
+  },
+),
                 ],
               ),
               Spacer(),

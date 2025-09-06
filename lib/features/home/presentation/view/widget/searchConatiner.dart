@@ -1,19 +1,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
-import 'package:fruits_hub/core/utils/components.dart';
 import 'package:svg_flutter/svg.dart';
 
-class HomeSearchWidget extends StatelessWidget {
-  const HomeSearchWidget({
+class SearchConatinerWidget extends StatelessWidget {
+  const SearchConatinerWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8, ),
-          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 12),
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -40,7 +39,16 @@ class HomeSearchWidget extends StatelessWidget {
           ),
               const SizedBox(width: 8),
               Expanded(
-    child: defulttext(data: "ابحث عن...", color: Colors.grey, fSize: 16),
+    child: TextField(
+      textAlign: TextAlign.right, // للكتابة بالعربي
+      decoration: InputDecoration(
+        hintText: "ابحث عن...",
+        hintStyle: TextStyle(
+          color: Colors.grey[500],
+        ),
+        border: InputBorder.none,
+      ),
+    ),
               ),
               GestureDetector(
     onTap: () {

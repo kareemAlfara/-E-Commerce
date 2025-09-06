@@ -43,7 +43,8 @@ class Signinview extends StatelessWidget {
           } else if (state is GoogleSigninSuccessState ||
               state is SigninSuccessState || state is FacebookSigninSuccessState) {
             await Prefs.saveUserIdToPrefs();
-          
+            await Prefs.saveUsernameToPrefs();
+
             Fluttertoast.showToast(
               msg: 'تم إنشاء الحساب بنجاح',
               backgroundColor: Colors.green,

@@ -31,7 +31,7 @@ class SignupbodyWidget extends StatelessWidget {
         } else if (state is SignupSuccessState) {
           Navigator.popAndPushNamed(context, Signinview.routeName);
             await Prefs.saveUserIdToPrefs ();
-
+await Prefs.saveUsernameToPrefs ();
           Fluttertoast.showToast(
             msg: 'تم إنشاء الحساب بنجاح',
             backgroundColor: Colors.green,

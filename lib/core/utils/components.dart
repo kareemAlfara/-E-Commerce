@@ -1,10 +1,43 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:svg_flutter/svg.dart';
+
+PreferredSizeWidget? defaultAppBar({
+  required BuildContext context,
+  required String title,
+  bool automaticallyImplyLeading = true,
+  bool isShowActions = true,
+}) => AppBar(
+  centerTitle: true ,
+  automaticallyImplyLeading: automaticallyImplyLeading ,
+  leading:automaticallyImplyLeading? IconButton(
+    onPressed: () {
+      Navigator.pop(context);
+    },
+    icon: const Icon(Icons.arrow_back_ios_new_outlined),
+  ):SizedBox.shrink(),
+  title: Text("$title",style: const TextStyle(fontFamily: 'Cairo',fontSize: 20,fontWeight: FontWeight.bold)),
+  actions: [
+  isShowActions?  GestureDetector(
+      onTap: () async {
+        // Handle notification tap
+      },
+      child: SvgPicture.asset(
+        Assets.imagesNotification,
+        fit: BoxFit.fill,
+        height: 30,
+        width: 30,
+      ),
+    ):SizedBox.shrink(),
+    SizedBox(width: 8),
+  ],
+);
 
 String? uid;
-
+const kUserData = 'userData';
 Future<dynamic> navigat(context, {required Widget widget}) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 
@@ -17,7 +50,6 @@ Widget defulttext({
   FontWeight? fw,
   int? maxLines = 4,
 }) => Text(
-  
   textAlign: textAlign,
   textDirection: textDirection,
   maxLines: maxLines,
@@ -35,7 +67,7 @@ Widget defulitTextFormField({
   String? hintText,
   Widget? suffixIcon,
   Widget? label,
-  TextInputType? keyboardType=TextInputType.multiline,
+  TextInputType? keyboardType = TextInputType.multiline,
   Color? textcolor = Colors.black,
   // Color? bordercolor=Colors.white,
   Color bordercolor = Colors.black,
@@ -49,7 +81,6 @@ Widget defulitTextFormField({
   Color? fillColor, // Inside color
   Widget? prefix,
 }) => TextFormField(
-
   keyboardType: keyboardType,
   obscureText: isobscure,
   onFieldSubmitted: onFieldSubmitted,
@@ -59,7 +90,7 @@ Widget defulitTextFormField({
   textInputAction: textInputAction,
   controller: controller,
   style: TextStyle(color: textcolor),
-  
+
   decoration: InputDecoration(
     prefix: prefix,
     hintStyle: TextStyle(color: Colors.grey),
@@ -78,7 +109,7 @@ Widget defulitTextFormField({
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
 
-      borderSide: BorderSide(color: bordercolor,
+      borderSide: BorderSide(color: bordercolor),
     ),
-  ),)
+  ),
 );

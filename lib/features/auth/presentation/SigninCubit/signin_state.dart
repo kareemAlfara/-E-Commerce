@@ -5,26 +5,10 @@ sealed class Signinstate {}
 
 final class LoginInitial extends Signinstate {}
 final class changePaswordiconstate extends Signinstate {}
-final class loginuserloadingState extends Signinstate {}
-
-final class loginusersuccessState extends Signinstate {}
-
-final class loginuserFailerState extends Signinstate {
-  final String error;
-
-  loginuserFailerState({required this.error});
+final class logoutSuccessstate extends Signinstate {
+   final UserEntity user;
+  logoutSuccessstate({required this.user});
 }
-
-final class getAllUsersLoadingState extends Signinstate {}
-
-final class getAllUsersSuccessState extends Signinstate {}
-
-final class getAllUsersFailureState extends Signinstate {
-  final String error;
-
-  getAllUsersFailureState({required this.error});
-}
-final class logoutSuccessstate extends Signinstate {}
 
 final class LogoutFailureState extends Signinstate {
   final String error;
@@ -33,14 +17,22 @@ final class LogoutFailureState extends Signinstate {
 }
 final class changeNewpassword2iconstate extends Signinstate {}
 final class changeNewpassword1iconstate extends Signinstate {}
-final class SigninSuccessState extends Signinstate {}
+final class SigninSuccessState extends Signinstate {
+    final UserEntity user;
+  
+    SigninSuccessState({required this.user});
+}
 final class SigninLoadingState extends Signinstate {} 
 final class SigninErrorState extends Signinstate {
   final String error;
 
   SigninErrorState({required this.error});
 }
-final class GoogleSigninSuccessState extends Signinstate {} 
+final class GoogleSigninSuccessState extends Signinstate {
+   final UserEntity user;
+
+  GoogleSigninSuccessState({required this.user});
+} 
 final class GoogleSigninLoadingState extends Signinstate {} 
 final class GoogleSigninFailureState extends Signinstate {
   final String error;
@@ -49,7 +41,11 @@ final class GoogleSigninFailureState extends Signinstate {
 }
 final class signoutState extends Signinstate {} 
 
-final class FacebookSigninSuccessState extends Signinstate {}
+final class FacebookSigninSuccessState extends Signinstate {
+    final UserEntity user;
+  
+    FacebookSigninSuccessState({required this.user});
+}
 final class FacebookSigninLoadingState extends Signinstate {}
 final class FacebookSigninFailureState extends Signinstate {
   final String error;

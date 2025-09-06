@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/FeatureList.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/HomeSearchWidget.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/custom_bottom_navigation_bar.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/productGridView.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/searchPage.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/themostSale.dart';
 import 'widget/CustomAppbar.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
   static const String routeName = 'home';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -23,7 +27,11 @@ class Home extends StatelessWidget {
                 child: CustomAppbarWidget(),
               ),
               SizedBox(height: 10),
-              HomeSearchWidget(),
+              GestureDetector(
+                onTap: () {
+                  navigat(context, widget: Searchpage());
+                },
+                child: HomeSearchWidget()),
               // SizedBox(height: 10),
               FeatureList(),
 

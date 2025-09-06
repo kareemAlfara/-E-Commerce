@@ -6,10 +6,18 @@ class Assets {
   /// assets/images/app_icon.png
   static const String imagesAppIcon = "assets/images/app_icon.png";
   static const String imagesMango = "assets/images/mango.svg";
-  static const String imagesBanana = "assets/images/Bitmap.svg";
+  static const String imagesBanana = "assets/images/Bitmap.png";
   static const String imagesPinApple = "assets/images/pinapple.png";
-  static const String imagesStrawberry = "assets/images/image29.svg";
-  static const String imagesAvocado = "assets/images/Avocado.svg";
+  static const String imagesStrawberry = "assets/images/image29.png";
+  static const String imagesAvocado = "assets/images/avocatoo.png";
+  static const String search = "assets/images/search.png";
+  static const String imagecosticon = "assets/images/dd.svg";
+  static const String imagestar = "assets/images/star.svg";
+  static const String imageGroup1 = "assets/images/Group1.svg";
+  static const String imageGroup2 = "assets/images/Group2.svg";
+  static const String imageGroup3 = "assets/images/Group3.svg";
+  static const String imageGroup4 = "assets/images/Group4.svg";
+   
 
   /// Assets for imagesApplIcon
   /// assets/images/appl_icon.svg

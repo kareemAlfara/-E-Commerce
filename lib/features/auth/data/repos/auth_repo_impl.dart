@@ -4,7 +4,6 @@ import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/features/auth/data/models/usersModel.dart';
 import 'package:fruits_hub/features/auth/domain/entites/user_entity.dart';
 import 'package:fruits_hub/features/auth/domain/repos/auth_repo.dart';
-import 'package:fruits_hub/features/auth/domain/usecases/signin_user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -20,17 +19,32 @@ class AuthRepoImpl implements AuthRepository {
     if (response.user != null) {
       uid = response.user!.id;
       // CRITICAL FIX: Save user_id to SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user_id', uid!);
-
-      print("User ID saved to SharedPreferences: $uid");
     }
-    return Usersmodel(
+      final supabase = Supabase.instance.client;
+  final userRow = await supabase
+      .from('users')
+      .select('name')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+  final String userName = userRow?['name'].toString() ?? "username" ;
+    final model = Usersmodel(
       id: user.id,
       email: user.email!,
       password: "",
-      name: user.userMetadata?['full_name'] ?? '',
+      name: userName,
     );
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user_id', uid!);
+      if(uid==model.id){
+
+      }
+      await prefs.setString('username',model.name );
+      print("User ID saved to SharedPreferences: $uid");
+      log(model.name);
+    log(model.email);
+    log(model.id);
+    return model;
   }
 
   final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -53,15 +67,20 @@ class AuthRepoImpl implements AuthRepository {
           idToken: googleAuth.idToken!,
           accessToken: googleAuth.accessToken,
         );
+    final user = response.user!;
+
     if (response.user != null) {
       uid = response.user!.id;
       // CRITICAL FIX: Save user_id to SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('user_id', uid!);
+      await prefs.setString(
+        'username',
+        user.userMetadata?['full_name'] ?? googleUser.displayName,
+      );
 
       print("User ID saved to SharedPreferences: $uid");
     }
-    final user = response.user!;
     await Supabase.instance.client.from('users').upsert({
       "user_id": user.id,
       "name": user.userMetadata?['full_name'] ?? googleUser.displayName,
@@ -91,6 +110,8 @@ class AuthRepoImpl implements AuthRepository {
     _usersSubscription = null;
     final pref = await SharedPreferences.getInstance();
     await pref.remove("user_id");
+    await pref.remove("username");
+    log('User signed out and preferences cleared');
     await Supabase.instance.client.auth.signOut();
     uid = null;
   }
@@ -112,7 +133,7 @@ class AuthRepoImpl implements AuthRepository {
       // CRITICAL FIX: Save user_id to SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('user_id', uid!);
-
+      await prefs.setString('username', name);
       print("User ID saved to SharedPreferences: $uid");
     }
     return Usersmodel(
@@ -151,12 +172,14 @@ class AuthRepoImpl implements AuthRepository {
                 user.email?.split('@')[0] ??
                 'Facebook User',
           );
-          // uid = user.id;
-          //         // CRITICAL FIX: Save user_id to SharedPreferences
-          //       final prefs = await SharedPreferences.getInstance();
-          //       await prefs.setString('user_id', uid!);
+          uid = user.id;
+          // CRITICAL FIX: Save user_id to SharedPreferences
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('user_id', uid!);
 
-          //       print("User ID saved to SharedPreferences: $uid");
+          print("User ID saved to SharedPreferences: $uid");
+          await prefs.setString('username', userEntity.name);
+          print("Username saved to SharedPreferences: ${userEntity.name}");
           // Save to database
           await supa.from('users').upsert({
             "user_id": user.id,

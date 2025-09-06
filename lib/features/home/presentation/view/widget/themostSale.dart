@@ -10,29 +10,7 @@ class TheMostSale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new_outlined),
-        ),
-        title: const Text("الأكثر مبيعاً"),
-        actions: [
-          GestureDetector(
-            onTap: () async {
-              // Handle notification tap
-            },
-            child: SvgPicture.asset(
-              Assets.imagesNotification,
-              fit: BoxFit.fill,
-              height: 30,
-              width: 30,
-            ),
-          ),
-          SizedBox(width: 8),
-        ],
-      ),
+      appBar: defaultAppBar(context: context, title: 'الأكثر مبيعاً'),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
