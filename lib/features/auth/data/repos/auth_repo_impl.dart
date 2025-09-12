@@ -20,31 +20,57 @@ class AuthRepoImpl implements AuthRepository {
       uid = response.user!.id;
       // CRITICAL FIX: Save user_id to SharedPreferences
     }
-      final supabase = Supabase.instance.client;
-  final userRow = await supabase
-      .from('users')
-      .select('name')
-      .eq('user_id', user.id)
-      .maybeSingle();
+    final supabase = Supabase.instance.client;
+    final userRow = await supabase
+        .from('users')
+        .select('name')
+        .eq('user_id', user.id)
+        .maybeSingle();
 
-  final String userName = userRow?['name'].toString() ?? "username" ;
+    final String userName = userRow?['name'].toString() ?? "username";
     final model = Usersmodel(
       id: user.id,
       email: user.email!,
       password: "",
       name: userName,
     );
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user_id', uid!);
-      if(uid==model.id){
-
-      }
-      await prefs.setString('username',model.name );
-      print("User ID saved to SharedPreferences: $uid");
-      log(model.name);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_id', uid!);
+    if (uid == model.id) {}
+    await prefs.setString('username', model.name);
+    print("User ID saved to SharedPreferences: $uid");
+    log(model.name);
     log(model.email);
     log(model.id);
-    return model;
+    return model.toEntity();
+  }
+
+  @override
+  Future<UserEntity> signup(String email, String password, String name) async {
+    final response = await Supabase.instance.client.auth.signUp(
+      email: email,
+      password: password,
+    );
+    await Supabase.instance.client.from('users').insert({
+      "user_id": response.user!.id,
+      'name': name,
+      'email': email,
+      'password': password,
+    });
+    if (response.user != null) {
+      uid = response.user!.id;
+      // CRITICAL FIX: Save user_id to SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('user_id', uid!);
+      await prefs.setString('username', name);
+      print("User ID saved to SharedPreferences: $uid");
+    }
+    return Usersmodel(
+      id: response.user!.id,
+      email: email,
+      password: password,
+      name: name,
+    ).toEntity();
   }
 
   final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -81,12 +107,20 @@ class AuthRepoImpl implements AuthRepository {
 
       print("User ID saved to SharedPreferences: $uid");
     }
-    await Supabase.instance.client.from('users').upsert({
-      "user_id": user.id,
-      "name": user.userMetadata?['full_name'] ?? googleUser.displayName,
-      "email": user.email,
-      "password": 'google_oauth',
-    });
+    final existingUser = await Supabase.instance.client
+    .from('users')
+    .select('user_id')
+    .eq('user_id', user.id)
+    .maybeSingle();
+
+    if (existingUser == null) {
+  await Supabase.instance.client.from('users').upsert({
+    "user_id": user.id,
+    "name": user.userMetadata?['full_name'] ?? googleUser.displayName,
+    "email": user.email,
+    "password": 'google_oauth',
+  });
+}
 
     Usersmodel model = Usersmodel(
       id: user.id,
@@ -97,7 +131,7 @@ class AuthRepoImpl implements AuthRepository {
     log(model.name);
     log(model.email);
     log(model.id);
-    return model;
+    return model.toEntity();
   }
 
   final SupabaseClient _supabase = Supabase.instance.client;
@@ -116,37 +150,10 @@ class AuthRepoImpl implements AuthRepository {
     uid = null;
   }
 
-  @override
-  Future<UserEntity> signup(String email, String password, String name) async {
-    final response = await Supabase.instance.client.auth.signUp(
-      email: email,
-      password: password,
-    );
-    await Supabase.instance.client.from('users').insert({
-      "user_id": response.user!.id,
-      'name': name,
-      'email': email,
-      'password': password,
-    });
-    if (response.user != null) {
-      uid = response.user!.id;
-      // CRITICAL FIX: Save user_id to SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user_id', uid!);
-      await prefs.setString('username', name);
-      print("User ID saved to SharedPreferences: $uid");
-    }
-    return Usersmodel(
-      id: response.user!.id,
-      email: email,
-      password: password,
-      name: name,
-    );
-  }
-
   // Alternative simpler approach if the above doesn't work
   @override
   Future<UserEntity> signinWithFacebook() async {
+  await  signout();
     final supa = Supabase.instance.client;
 
     try {
@@ -188,7 +195,7 @@ class AuthRepoImpl implements AuthRepository {
             'password': userEntity.password,
           });
 
-          return userEntity;
+          return userEntity.toEntity();
         }
       }
 

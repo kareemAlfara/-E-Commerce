@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
-import 'package:fruits_hub/core/widget/custom_button.dart';
-import 'package:fruits_hub/features/home/presentation/view/widget/FeatureList.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/HomeSearchWidget.dart';
-import 'package:fruits_hub/features/home/presentation/view/widget/custom_bottom_navigation_bar.dart';
-import 'package:fruits_hub/features/home/presentation/view/widget/ourProductswidget.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/ourproductListview.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/productGridView.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/prouductbottomsheet.dart';

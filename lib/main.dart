@@ -1,3 +1,7 @@
+
+
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/helper_functions/on_generate_routes.dart';
@@ -15,9 +19,10 @@ import 'package:fruits_hub/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:app_links/app_links.dart';
 
 void main(List<String> args) async {
-  await WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = CustomBlocObserver();
 
   await Supabase.initialize(
@@ -28,6 +33,12 @@ void main(List<String> args) async {
   await Prefs.init();
   final prefs = await SharedPreferences.getInstance();
   final userId = prefs.getString('user_id');
+  log(userId.toString());
+  // Listen for incoming deep links
+final appLinks = AppLinks();
+appLinks.uriLinkStream.listen((uri) {
+  print("🔗 DeepLink received: $uri");
+});
   runApp(MyApp(isLoggedIn: userId != null));
   // runApp(const MyApp());
 }

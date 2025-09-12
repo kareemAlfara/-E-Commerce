@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
+import 'package:fruits_hub/features/home/domain/entites/cartEntity.dart';
+import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
 import 'package:svg_flutter/svg.dart';
 
 
 class CardWidget extends StatelessWidget {
   const CardWidget({
-    super.key,
+    super.key,required this.product,
   });
-
+  final Cartentity product;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -21,7 +23,7 @@ class CardWidget extends StatelessWidget {
           padding: EdgeInsets.all(5),
           color: Colors.grey[200],
           child: Image.asset(
-            Assets.imagesWatermelonTest,
+          product.product.image,
             height: 70,
             width: 60,
           ),
@@ -50,13 +52,13 @@ class CardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         defulttext(
-                          data: "بطيخ",
+                          data: product.product.name,
                           color: Colors.black,
                           fw: FontWeight.bold,
                           fSize: 16,
                         ),
                         defulttext(
-                          data: "3كم ",
+                          data: "${product.gettotalWight()}كم ",
                           color: Colors.amber,
                           fw: FontWeight.bold,
                           fSize: 16,
@@ -123,7 +125,7 @@ class CardWidget extends StatelessWidget {
                       children: [
                     SvgPicture.asset(Assets.imagesTrash,height: 20,width: 20,color: Colors.red,), 
                           
-                    defulttext(data: "60 جنية", fSize: 17, fw: FontWeight.bold,color: Colors.amber),   
+                    defulttext(data: "${product.grttotalprice()} جنية", fSize: 17, fw: FontWeight.bold,color: Colors.amber),   
                     ],)
                           
                     // SizedBox(

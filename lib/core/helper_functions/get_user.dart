@@ -9,5 +9,5 @@ import 'package:fruits_hub/features/auth/domain/entites/user_entity.dart';
 UserEntity getUser() {
   var jsonString = Prefs.getString(kUserData);
   var userEntity = Usersmodel.fromJson(jsonDecode(jsonString));
-  return userEntity;
+  return userEntity.toEntity();
 }

@@ -16,12 +16,15 @@ class mainviewbody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // IndexedStack دي علشان مش كل لاما اخرج من صفحة لصفحة ميعملش تحميل للصفحة من اول وجديد بيحمل الصفحة مرة واحدة فقط
     return IndexedStack(
       index: currentViewIndex,
       children: const [
       Home(),
       ProductView(),
-      CartView(),
+      CartView(
+        cartItems: [],
+      ),
       CustomerView(),
       ],
     );
