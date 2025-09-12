@@ -7,7 +7,7 @@ Productsentities getDummyProduct() {
     description: 'Fresh apple',
     price: 2.5,
     reviews: [],
-   id: 11111111, image: 'https://euudvrftyscplhfwzxli.supabase.co/storage/v1/oject/public/product_images/uploads/2af9a03e-dff1-4d8d-ad0f-1e2c7ce25519.png',
+   id: 11111111, image: 'https://mcprod.hyperone.com.eg/media/catalog/product/cache/8d4e6327d79fd11192282459179cc69e/2/3/2394293000006.jpg',
     unitAmount: 1,
   );
 }

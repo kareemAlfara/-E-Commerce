@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/CartView.dart';
 import 'package:fruits_hub/features/home/presentation/view/costomerView.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
@@ -16,14 +18,15 @@ class mainviewbody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  var  cartcubit=context.read<CartCubit>();
     // IndexedStack دي علشان مش كل لاما اخرج من صفحة لصفحة ميعملش تحميل للصفحة من اول وجديد بيحمل الصفحة مرة واحدة فقط
     return IndexedStack(
       index: currentViewIndex,
-      children: const [
+      children:  [
       Home(),
       ProductView(),
       CartView(
-        cartItems: [],
+        cartItems:cartcubit.allcartEntiy.cartlist ,
       ),
       CustomerView(),
       ],

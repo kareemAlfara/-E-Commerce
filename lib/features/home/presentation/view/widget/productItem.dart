@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/features/home/data/models/productmodel.dart';
 import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
+import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/itemDetilas.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/ourProductswidget.dart';
 
@@ -25,10 +28,16 @@ class productItem extends StatelessWidget {
             IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
             GestureDetector(
               onTap: () {
-                navigat(context, widget: ItemDetilas(
-                  id: model.id,
-                  title: model.name,
-                 price: model.price, description: model.description, image: model.image,));
+                navigat(
+                  context,
+                  widget: ItemDetilas(
+                    id: model.id,
+                    title: model.name,
+                    price: model.price,
+                    description: model.description,
+                    image: model.image,
+                  ),
+                );
               },
               child: Center(
                 child: Image.network(
@@ -58,7 +67,10 @@ class productItem extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: AppColors.lightPrimaryColor,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<CartCubit>().addproduct(model);
+                
+                    },
                     icon: Icon(Icons.add),
                     color: Colors.white,
                   ),
