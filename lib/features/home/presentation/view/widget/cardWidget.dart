@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruits_hub/core/utils/app_colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/features/home/domain/entites/cartEntity.dart';
-import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
 import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
 import 'package:svg_flutter/svg.dart';
 
@@ -63,7 +62,9 @@ class CardWidget extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                context.read<CartCubit>().addproduct(product.product);
+                                context.read<CartCubit>().addproduct(
+                                  product.product,
+                                );
                               },
                               child: Container(
                                 width: 32,
@@ -100,7 +101,11 @@ class CardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                                context.read<CartCubit>().decrease(
+                                  product.product,
+                                );
+                          },
                           child: Container(
                             width: 32,
                             height: 32,
@@ -121,11 +126,21 @@ class CardWidget extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        SvgPicture.asset(
-                          Assets.imagesTrash,
-                          height: 20,
-                          width: 20,
-                          color: Colors.red,
+                        GestureDetector(
+                          onTap: () {
+                            context.read<CartCubit>().deleteCart(product);
+
+                            Fluttertoast.showToast(
+                              msg: "تم حذف المنتج بنجاح",
+                              backgroundColor: Colors.green,
+                            );
+                          },
+                          child: SvgPicture.asset(
+                            Assets.imagesTrash,
+                            height: 20,
+                            width: 20,
+                            color: Colors.red,
+                          ),
                         ),
 
                         defulttext(

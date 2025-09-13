@@ -1,13 +1,17 @@
 import 'package:fruits_hub/features/home/domain/entites/cartEntity.dart';
 import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
 
-class allcartEntity {
+
+class allcartEntity  {
   final List<Cartentity> cartlist;
 
   allcartEntity({required this.cartlist});
 
   addcart(Cartentity cartentity) {
     cartlist.add(cartentity);
+  }
+  deletecart(Cartentity cartentity){
+    cartlist.remove(cartentity);
   }
   num gettotalprice(){
   num totalprice=0;

@@ -40,11 +40,16 @@ class productItem extends StatelessWidget {
                 );
               },
               child: Center(
-                child: Image.network(
+                child:   model.image != null
+                    ? Image.network(
                   model.image,
                   fit: BoxFit.fill,
                   height: 130,
-                ),
+                ): Container(
+                        color: Colors.grey,
+                        height: 100,
+                        width: 100,
+                      ),
               ),
             ),
             // SizedBox(height: 12),

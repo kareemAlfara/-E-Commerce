@@ -9,3 +9,5 @@ final class addedcartfailure extends CartState {
   final String error;
   addedcartfailure({required this.error});
 }
+final class cartremovestate extends CartState {}
+final class cartrdecreasestate extends CartState {}

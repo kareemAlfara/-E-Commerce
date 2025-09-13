@@ -38,9 +38,12 @@ class CartView extends StatelessWidget {
                   width: double.infinity,
                   padding: EdgeInsets.all(10),
                   color: Color(0xFFEBF9F1),
-    
+
                   child: Center(
-                    child: defulttext(data: "لديك ${context.read<CartCubit>().allcartEntiy.cartlist.length} منتجات في سلة التسوق"),
+                    child: defulttext(
+                      data:
+                          "لديك ${context.read<CartCubit>().allcartEntiy.cartlist.length} منتجات في سلة التسوق",
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -49,19 +52,22 @@ class CartView extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (context, index) =>
                         CardWidget(product: cartItems[index]),
-                    separatorBuilder: (context, index) =>
-                        SizedBox(height: 10),
+                    separatorBuilder: (context, index) => SizedBox(height: 10),
                     itemCount: cartItems.length,
                   ),
                 ),
                 SizedBox(height: 22),
-                CustomButton(
-                  onPressed: () {},
-                  text: "ادفع ${context.read<CartCubit>().allcartEntiy.gettotalprice()} جنية",
-                  fSize: 17,
-                ),
+                context.read<CartCubit>().allcartEntiy.cartlist.length == 0
+                    ? SizedBox()
+                    : CustomButton(
+                        onPressed: () {},
+                        text:
+                            "ادفع ${context.read<CartCubit>().allcartEntiy.gettotalprice()} جنية",
+                        fSize: 17,
+                      ),
               ],
             ),
+            
           ),
         );
       },
