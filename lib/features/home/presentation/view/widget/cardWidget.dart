@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +14,8 @@ class CardWidget extends StatelessWidget {
   final Cartentity product;
   @override
   Widget build(BuildContext context) {
+    
+    log("ffffffffffffffffffff");
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -102,9 +106,7 @@ class CardWidget extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                                context.read<CartCubit>().decrease(
-                                  product.product,
-                                );
+                            context.read<CartCubit>().decrease(product.product);
                           },
                           child: Container(
                             width: 32,

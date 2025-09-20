@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
+import 'package:fruits_hub/features/chechout/presentation/view/widget/checkupView.dart';
 import 'package:fruits_hub/features/home/data/repo_impl/Product_repo_impl.dart';
 import 'package:fruits_hub/features/home/domain/entites/cartEntity.dart';
 import 'package:fruits_hub/features/home/domain/usecases/getBestSellingUsecase.dart';
@@ -60,14 +61,15 @@ class CartView extends StatelessWidget {
                 context.read<CartCubit>().allcartEntiy.cartlist.length == 0
                     ? SizedBox()
                     : CustomButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Checkupview.routeName,arguments:context.read<CartCubit>().allcartEntiy );
+                        },
                         text:
                             "ادفع ${context.read<CartCubit>().allcartEntiy.gettotalprice()} جنية",
                         fSize: 17,
                       ),
               ],
             ),
-            
           ),
         );
       },

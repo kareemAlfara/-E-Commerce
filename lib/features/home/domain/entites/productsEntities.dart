@@ -10,12 +10,19 @@ class Productsentities extends Equatable {
   final String image;
   final String code;
   final num unitAmount;
+  final num numberofCaluries;
+  final num avgRating;
+  final bool isorginic;
+
 final List<Reviewentity>reviews;
   // File? fileFile;
 
   Productsentities( {
 
     required this.reviews,
+    required this.avgRating,
+    required this.isorginic,
+    required this.numberofCaluries,
     required this.unitAmount,
     required this.id,
     required this.code,

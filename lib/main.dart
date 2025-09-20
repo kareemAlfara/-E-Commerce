@@ -4,12 +4,19 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/helper_functions/on_generate_routes.dart';
 import 'package:fruits_hub/core/services/Shared_preferences.dart';
 import 'package:fruits_hub/core/services/custom_bloc_observer.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
+import 'package:fruits_hub/features/chechout/presentation/view/shippingView.dart';
+import 'package:fruits_hub/features/chechout/presentation/view/widget/checkupView.dart';
+import 'package:fruits_hub/features/home/data/repo_impl/Product_repo_impl.dart';
+import 'package:fruits_hub/features/home/domain/usecases/addreviewsusecase.dart';
+import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
+import 'package:fruits_hub/features/home/presentation/addreviewcubit/add_review_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:fruits_hub/features/home/presentation/view/mainView.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/mainviewbody.dart';
@@ -48,7 +55,18 @@ class MyApp extends StatelessWidget {
   final bool isLoggedIn;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CartCubit(),
+        ),
+          BlocProvider(
+          create: (context) => AddReviewCubit(
+            addreviewsusecase(ProductRepoImpl()),
+          ),
+        ),
+      ],
+      child:MaterialApp(
       theme: ThemeData(
         fontFamily: 'Cairo',
         scaffoldBackgroundColor: Colors.white,
@@ -66,6 +84,7 @@ class MyApp extends StatelessWidget {
       initialRoute: isLoggedIn ? Mainview.routeName : SplashView.routeName,
 
       debugShowCheckedModeBanner: false,
+    ),
     );
   }
 }

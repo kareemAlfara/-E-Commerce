@@ -4,6 +4,9 @@ Productsentities getDummyProduct() {
   return Productsentities(
     name: 'Apple',
     code: '123',
+    isorginic: true,
+    numberofCaluries: 100,
+    avgRating: 4.5,
     description: 'Fresh apple',
     price: 2.5,
     reviews: [],

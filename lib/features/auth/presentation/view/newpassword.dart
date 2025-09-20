@@ -103,7 +103,8 @@ class NewPassword extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
-                                title: Container(
+                                title:
+                                 Container(
                                   margin: EdgeInsets.only(top: 20),
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,

@@ -4,8 +4,12 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.onPressed,
-   required this.text, this.fSize=14});
+  const CustomButton({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    this.fSize = 14,
+  });
   final VoidCallback onPressed;
   final String text;
   final double fSize;
@@ -22,7 +26,12 @@ class CustomButton extends StatelessWidget {
           backgroundColor: AppColors.primaryColor,
         ),
         onPressed: onPressed,
-        child: defulttext(data: text, color: Colors.white,fSize: fSize),
+        child: defulttext(
+          data: text,
+          color: Colors.white,
+          fSize: fSize,
+          fw: FontWeight.bold,
+        ),
       ),
     );
   }

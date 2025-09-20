@@ -17,6 +17,18 @@ class Assets {
   static const String imageGroup2 = "assets/images/Group2.svg";
   static const String imageGroup3 = "assets/images/Group3.svg";
   static const String imageGroup4 = "assets/images/Group4.svg";
+  static const String imagevisa = "assets/images/Visa.svg";
+  static const String imagepaypal = "assets/images/paypal.svg";
+  static const String imageapple_pay = "assets/images/applepal.svg";
+  static const String image_instapay = "assets/images/instapay.svg";
+  static const String imagefullbox = "assets/images/full_box.svg";
+  static const String imagempty_box = "assets/images/empty_box.svg";
+  static const String checked = "assets/images/checked1.svg";
+  static const String location2 = "assets/images/location2.svg";
+  static const String bike = "assets/images/bike.svg";
+  static const String tranck = "assets/images/tranck.svg";
+
+  
    
 
   /// Assets for imagesApplIcon

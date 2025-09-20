@@ -31,11 +31,7 @@ class productItem extends StatelessWidget {
                 navigat(
                   context,
                   widget: ItemDetilas(
-                    id: model.id,
-                    title: model.name,
-                    price: model.price,
-                    description: model.description,
-                    image: model.image,
+                   product: model,
                   ),
                 );
               },

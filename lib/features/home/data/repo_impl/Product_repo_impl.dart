@@ -12,7 +12,7 @@ class ProductRepoImpl implements ProductRepo{
     try {
       final response = await Supabase.instance.client
           .from('products')
-          .select()
+          .select('*, reviews(*)')
           .order('created_at', ascending: false);
       
       if (response.isEmpty) {
@@ -74,7 +74,7 @@ return Reviewmodel.fromJson({
     try {
       final response = await Supabase.instance.client
           .from('products')
-          .select()
+          .select('*, reviews(*)')
           .order('sellingCount', ascending: false
           
           ).limit(6);

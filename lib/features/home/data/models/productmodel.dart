@@ -7,6 +7,9 @@ class Productmodel {
   final String name;
   final num price;
   final num avgRating;
+  final num numberofCaluries;
+  final bool isorginic;
+
   final num sellingCount;
   final num unitAmount;
   final String description;
@@ -15,6 +18,8 @@ class Productmodel {
   final List<Reviewmodel> reviews;
   Productmodel({
     required this.avgRating,
+    required this.numberofCaluries,
+    required this.isorginic,
     required this.unitAmount,
     required this.sellingCount,
     required this.reviews,
@@ -28,6 +33,9 @@ class Productmodel {
   Productsentities toEntity() {
     return Productsentities(
       id: id,
+      numberofCaluries: numberofCaluries,
+      avgRating: avgRating,
+      isorginic: isorginic,
       unitAmount: unitAmount,
       name: name,
       price: price,
@@ -41,6 +49,8 @@ class Productmodel {
   factory Productmodel.fromJson(Map<String, dynamic> json) {
     return Productmodel(
       sellingCount: json["sellingCount"],
+      numberofCaluries: json["numberofCaluries"],
+      isorginic: json["isorginic"],
       unitAmount: json["unitAmount"],
       avgRating: getAvgRating(
         json['reviews'] != null

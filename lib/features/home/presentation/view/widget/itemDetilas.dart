@@ -1,233 +1,219 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
+import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
+import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
+import 'package:fruits_hub/features/home/presentation/productcubit/product_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/review.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:svg_flutter/svg_flutter.dart';
 
 class ItemDetilas extends StatelessWidget {
-  const ItemDetilas({
-    super.key,
-    required this.title,
-    required this.price,
-    required this.description,
-    required this.image,
-    required this.id,
-  });
-  final int id;
-  final String title;
-  final num price;
-  final String description;
-  final String image;
+  const ItemDetilas({super.key, required this.product});
+  final Productsentities product;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xffF3F5F7),
-        leading: Container(
-          padding: const EdgeInsets.all(0),
+    return BlocConsumer<ProductCubit, ProductState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Color(0xffF3F5F7),
+            leading: Container(
+              padding: const EdgeInsets.all(0),
 
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(50),
-          ),
-          child: IconButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: Colors.black,
-              size: 20,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: IconButton(
+                padding: const EdgeInsets.all(0),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: Colors.black,
+                  size: 20,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 300,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/cartitembackground.png"),
-                    fit: BoxFit.fill,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          "assets/images/cartitembackground.png",
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(70.0),
+                      child: Image.network(product.image, fit: BoxFit.fill),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(70.0),
-                  child: Image.network(image, fit: BoxFit.fill),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
                       children: [
-                        defulttext(data: title, fSize: 16, fw: FontWeight.bold),
-                        SizedBox(height: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            defulttext(
+                              data: product.name,
+                              fSize: 16,
+                              fw: FontWeight.bold,
+                            ),
+                            SizedBox(height: 10),
+                            defulttext(
+                              data: "${product.price} حنية /الكيلو" as String,
+                              fSize: 14,
+                              color: Colors.amber,
+                              fw: FontWeight.bold,
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 10),
+                        Spacer(),
+
+                        SizedBox(width: 50),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(Assets.imagestar),
+                        SizedBox(width: 4),
                         defulttext(
-                          data: "${price} حنية /الكيلو" as String,
-                          fSize: 14,
-                          color: Colors.amber,
+                          data: "${product.avgRating}",
+                          fSize: 16, 
                           fw: FontWeight.bold,
                         ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
-                    Spacer(),
-                    Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                              final prefs = await SharedPreferences.getInstance();
-                            final userId = prefs.getString('user_id');
-                            final username = prefs.getString('username');
-                          log(username.toString());
-                          log(userId.toString());
-                          },
-                          child: Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF4CAF50),
-                              borderRadius: BorderRadius.circular(22),
-                            ),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 24,
+                        SizedBox(width: 10),
+
+                        defulttext(
+                          data: "(+20)",
+                          color: Colors.grey,
+                          fSize: 16,
+                          fw: FontWeight.bold,
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "للمراجعة",
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(width: 20),
-
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        defulttext(data: "4", fSize: 20, fw: FontWeight.w800),
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            width: 32,
-                            height: 32,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(22),
-                            ),
-                            child: const Icon(
-                              Icons.remove,
-                              color: Colors.black,
-                              size: 25,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 50),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(Assets.imagestar),
-                    SizedBox(width: 4),
-                    defulttext(data: "4.5", fSize: 16, fw: FontWeight.bold),
-                    SizedBox(width: 10),
-
-                    defulttext(
-                      data: "(+20)",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: defulttext(
                       color: Colors.grey,
-                      fSize: 16,
-                      fw: FontWeight.bold,
+                      data: product.description,
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "للمراجعة",
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        itemDetilesContainer(
+                          title: "عام",
+                          Suptitle: " الصلاحية",
+                          image: Assets.imageGroup1,
                         ),
-                      ),
+                        product.isorginic
+                            ? itemDetilesContainer(
+                                title: "100%",
+                                Suptitle: " اورجانيك",
+                                image: Assets.imageGroup2,
+                              )
+                            : SizedBox(
+                                child: Container(
+                                  height: 80,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                ),
+                              ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: defulttext(color: Colors.grey, data: description),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    itemDetilesContainer(
-                      title: "عام",
-                      Suptitle: " الصلاحية",
-                      image: Assets.imageGroup1,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        itemDetilesContainer(
+                          title: "${product.numberofCaluries} كالوري",
+                          Suptitle: " 100 جرام",
+                          image: Assets.imageGroup3,
+                        ),
+                        GestureDetector(
+                          onTap: () => navigat(
+                            context,
+                            widget: reviewView(product_id: product.id),
+                          ),
+                          child: itemDetilesContainer(
+                            title: "${product.avgRating}",
+                            Suptitle: " التقييم",
+                            image: Assets.imageGroup4,
+                          ),
+                        ),
+                      ],
                     ),
-                    itemDetilesContainer(
-                      title: "100%",
-                      Suptitle: " اورجانيك",
-                      image: Assets.imageGroup2,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomButton(
+                      onPressed: () {
+                        context.read<CartCubit>().addproduct(product);
+                        Navigator.pop(context);
+                        // Navigator.pushAndRemoveUntil(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => Mainviewbolcconsumer(),
+                        //   ), // Replace with your actual main view class
+                        //   (route) => false,
+                        // );
+                        // Optional: Show a snackbar to confirm addition
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("تم إضافة المنتج إلى السلة"),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
+                      text: "أضف الي السلة",
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    itemDetilesContainer(
-                      title: "80 كالوري",
-                      Suptitle: " 100 جرام",
-                      image: Assets.imageGroup3,
-                    ),
-                    GestureDetector(
-                      onTap: () =>
-                          navigat(context, widget: reviewView(product_id: id)),
-                      child: itemDetilesContainer(
-                        title: "4.8",
-                        Suptitle: " التقييم",
-                        image: Assets.imageGroup4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomButton(onPressed: () {}, text: "أضف الي السلة"),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -261,11 +247,14 @@ class itemDetilesContainer extends StatelessWidget {
 
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                defulttext(
-                  data: title,
-                  fSize: 16,
-                  fw: FontWeight.bold,
-                  color: AppColors.lightPrimaryColor,
+                GestureDetector(
+                  onTap: () {},
+                  child: defulttext(
+                    data: title,
+                    fSize: 16,
+                    fw: FontWeight.bold,
+                    color: AppColors.lightPrimaryColor,
+                  ),
                 ),
                 SizedBox(height: 10),
                 defulttext(

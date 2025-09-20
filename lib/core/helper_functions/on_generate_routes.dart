@@ -3,6 +3,10 @@ import 'package:fruits_hub/features/auth/presentation/view/forgetPassword.dart';
 import 'package:fruits_hub/features/auth/presentation/view/newpassword.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
+import 'package:fruits_hub/features/chechout/presentation/view/shippingView.dart';
+import 'package:fruits_hub/features/chechout/presentation/view/widget/checkupView.dart';
+import 'package:fruits_hub/features/home/domain/entites/allCartEntity.dart';
+import 'package:fruits_hub/features/home/domain/entites/cartEntity.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:fruits_hub/features/home/presentation/view/mainView.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/themostSale.dart';
@@ -34,6 +38,12 @@ class OnGenerateRoutes {
         return MaterialPageRoute(builder: (_) => const TheMostSale());
       case Mainview.routeName:
         return MaterialPageRoute(builder: (_) => const Mainview());
+          case shippingView.routeName:
+        return MaterialPageRoute(builder: (_) => const shippingView());
+        case Checkupview.routeName:
+        return MaterialPageRoute(builder: (_) =>  Checkupview(
+          cartitem: settings.arguments as allcartEntity,
+        ));
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     } 

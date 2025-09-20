@@ -43,6 +43,7 @@ dependencies:
   fluttertoast: ^8.2.12
   google_sign_in: ^6.2.1
   pin_code_fields: ^8.0.1
+  provider: ^6.1.5+1
   shared_preferences: ^2.5.3
   skeletonizer: ^2.1.0+1
   supabase_flutter: ^2.9.1

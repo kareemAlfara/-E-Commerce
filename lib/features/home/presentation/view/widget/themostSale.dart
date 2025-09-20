@@ -10,27 +10,24 @@ class TheMostSale extends StatelessWidget {
   static const String routeName = 'themostsale';
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit(),
-      child: Scaffold(
-        appBar: defaultAppBar(context: context, title: 'الأكثر مبيعاً'),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10),
-                defulttext(
-                  data: "الأكثر مبيعاً",
-                  color: Colors.black,
-                  fw: FontWeight.bold,
-                  fSize: 20,
-                ),
-                SizedBox(height: 10),
-                productGridView(),
-              ],
-            ),
+    return Scaffold(
+      appBar: defaultAppBar(context: context, title: 'الأكثر مبيعاً'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10),
+              defulttext(
+                data: "الأكثر مبيعاً",
+                color: Colors.black,
+                fw: FontWeight.bold,
+                fSize: 20,
+              ),
+              SizedBox(height: 10),
+              productGridView(),
+            ],
           ),
         ),
       ),
