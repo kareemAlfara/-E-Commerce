@@ -11,6 +11,7 @@ PreferredSizeWidget? defaultAppBar({
   bool automaticallyImplyLeading = true,
   bool isShowActions = true,
 }) => AppBar(
+  backgroundColor: Colors.white,
   centerTitle: true ,
   automaticallyImplyLeading: automaticallyImplyLeading ,
   leading:automaticallyImplyLeading? IconButton(

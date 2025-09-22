@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/CartView.dart';
-import 'package:fruits_hub/features/home/presentation/view/costomerView.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/costomerView.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:fruits_hub/features/home/presentation/view/productView.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/notifications.dart';

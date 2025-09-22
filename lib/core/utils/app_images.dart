@@ -27,6 +27,11 @@ class Assets {
   static const String location2 = "assets/images/location2.svg";
   static const String bike = "assets/images/bike.svg";
   static const String tranck = "assets/images/tranck.svg";
+  static const String user = "assets/images/user.svg";
+  static const String wallet = "assets/images/empty-wallet.svg";
+  static const String heart = "assets/images/heart.svg";
+  static const String global = "assets/images/global.svg";
+  static const String info = "assets/images/info-circle.svg";
 
   
    

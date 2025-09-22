@@ -7,8 +7,14 @@ import 'package:fruits_hub/features/chechout/presentation/view/shippingView.dart
 import 'package:fruits_hub/features/chechout/presentation/view/widget/checkupView.dart';
 import 'package:fruits_hub/features/home/domain/entites/allCartEntity.dart';
 import 'package:fruits_hub/features/home/domain/entites/cartEntity.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/addnewCard.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/costomerView.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:fruits_hub/features/home/presentation/view/mainView.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/ProfileDetailsScreen.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/myorders.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/profilePayments.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/whoAre.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/themostSale.dart';
 import 'package:fruits_hub/features/onboard/presentation/view/onboarding.dart';
 import 'package:fruits_hub/features/splash/presentation/view/splash_view.dart';
@@ -38,14 +44,30 @@ class OnGenerateRoutes {
         return MaterialPageRoute(builder: (_) => const TheMostSale());
       case Mainview.routeName:
         return MaterialPageRoute(builder: (_) => const Mainview());
-          case shippingView.routeName:
+      case Myorders.routeName:
+        return MaterialPageRoute(builder: (_) => const Myorders());
+      case ProfileDetailsScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) =>  ProfileDetailsScreen(
+            
+          ),
+          settings: settings,
+        );
+      case shippingView.routeName:
         return MaterialPageRoute(builder: (_) => const shippingView());
-        case Checkupview.routeName:
-        return MaterialPageRoute(builder: (_) =>  Checkupview(
-          cartitem: settings.arguments as allcartEntity,
-        ));
+      case Addnewcard.routeName:
+        return MaterialPageRoute(builder: (_) => const Addnewcard());
+      case Whoare.routeName:
+        return MaterialPageRoute(builder: (_) => const Whoare());
+      case ProfilePayments.routeName:
+        return MaterialPageRoute(builder: (_) => const ProfilePayments());
+      case Checkupview.routeName:
+        return MaterialPageRoute(
+          builder: (_) =>
+              Checkupview(cartitem: settings.arguments as allcartEntity),
+        );
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
-    } 
+    }
   }
 }

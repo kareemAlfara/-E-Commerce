@@ -38,6 +38,7 @@ class AuthRepoImpl implements AuthRepository {
     await prefs.setString('user_id', uid!);
     if (uid == model.id) {}
     await prefs.setString('username', model.name);
+    await prefs.setString('email', model.email);
     print("User ID saved to SharedPreferences: $uid");
     log(model.name);
     log(model.email);
@@ -63,6 +64,7 @@ class AuthRepoImpl implements AuthRepository {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('user_id', uid!);
       await prefs.setString('username', name);
+      await prefs.setString('email', email);
       print("User ID saved to SharedPreferences: $uid");
     }
     return Usersmodel(
@@ -104,6 +106,7 @@ class AuthRepoImpl implements AuthRepository {
         'username',
         user.userMetadata?['full_name'] ?? googleUser.displayName,
       );
+      await prefs.setString('email', user.email!);
 
       print("User ID saved to SharedPreferences: $uid");
     }
@@ -187,6 +190,7 @@ class AuthRepoImpl implements AuthRepository {
           print("User ID saved to SharedPreferences: $uid");
           await prefs.setString('username', userEntity.name);
           print("Username saved to SharedPreferences: ${userEntity.name}");
+          await prefs.setString('email', userEntity.email);
           // Save to database
           await supa.from('users').upsert({
             "user_id": user.id,
