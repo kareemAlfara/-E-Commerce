@@ -12,6 +12,7 @@ import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScree
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:fruits_hub/features/home/presentation/view/mainView.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/ProfileDetailsScreen.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/favoritepage.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/myorders.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/profilePayments.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/whoAre.dart';
@@ -55,6 +56,8 @@ class OnGenerateRoutes {
         );
       case shippingView.routeName:
         return MaterialPageRoute(builder: (_) => const shippingView());
+        case Favoritepage.routeName:
+        return MaterialPageRoute(builder: (_) =>  Favoritepage());
       case Addnewcard.routeName:
         return MaterialPageRoute(builder: (_) => const Addnewcard());
       case Whoare.routeName:

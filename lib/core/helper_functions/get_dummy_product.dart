@@ -2,6 +2,7 @@ import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
 Productsentities getDummyProduct() {
   
   return Productsentities(
+    favorites: [],
     name: 'Apple',
     code: '123',
     isorginic: true,

@@ -4,6 +4,7 @@ import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/ProfileDetailsScreen.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/favoritepage.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/myorders.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/profilePayments.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/whoAre.dart';
@@ -130,7 +131,11 @@ class _homeprofileScreenState extends State<homeprofileScreen> {
                Navigator.of(context).pushNamed(ProfilePayments.routeName);
             },),
             SizedBox(height: 6),
-            profiledefultContainer(title: " المفضلة ", image: Assets.heart),
+            profiledefultContainer(title: " المفضلة ", image: Assets.heart 
+            ,onPressed: () {
+               Navigator.of(context).pushNamed(Favoritepage.routeName);
+              
+            }),
             SizedBox(height: 6),
             profiledefultContainer(
               title: " الإشعارات",

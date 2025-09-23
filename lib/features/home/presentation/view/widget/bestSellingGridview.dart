@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/helper_functions/get_dummy_product.dart';
 import 'package:fruits_hub/features/home/data/repo_impl/Product_repo_impl.dart';
+import 'package:fruits_hub/features/home/domain/usecases/addfavoriteusecase.dart';
 import 'package:fruits_hub/features/home/domain/usecases/getBestSellingUsecase.dart';
 import 'package:fruits_hub/features/home/domain/usecases/getproductUsecase.dart';
 import 'package:fruits_hub/features/home/presentation/productcubit/product_cubit.dart';
@@ -20,6 +21,9 @@ class bestSellingGridview extends StatelessWidget {
       create: (context) => ProductCubit(
         Getproductusecase(ProductRepoImpl()),
         Getbestsellingusecase(ProductRepoImpl()),
+        GetFavoriteProductsUsecase( ProductRepoImpl()),
+        Addfavoriteusecase(ProductRepoImpl()),
+        
       )..Getbestselling(),
 
       child: BlocConsumer<ProductCubit, ProductState>(

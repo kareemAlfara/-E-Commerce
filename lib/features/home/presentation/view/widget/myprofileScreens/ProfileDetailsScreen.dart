@@ -3,22 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svg_flutter/svg.dart';
 
-class ProfileDetailsScreen extends StatelessWidget {
+class ProfileDetailsScreen extends StatefulWidget {
   const ProfileDetailsScreen({super.key});
   static const String routeName = 'profileDetails';
+
+  @override
+  State<ProfileDetailsScreen> createState() => _ProfileDetailsScreenState();
+}
+
+class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
+  String? userId;
+  String? username;
+  String? email;
+    void initState() {
+    super.initState();
+    loadUserData();
+  }
+Future<void> loadUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('user_id');
+      username = prefs.getString('username');
+      email = prefs.getString('email');
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-
-final String username = args?["name"] ?? "اسم غير متوفر";
-final String email = args?["email"] ?? "بريد غير متوفر";
-
+    
+  
     return Scaffold(
       appBar: defaultAppBar(
         context: context,
-        title: "الملف الشخصية",
+        title: "الملف الشخصي",
         isShowActions: false,
       ),
       body: SingleChildScrollView(
@@ -28,7 +47,7 @@ final String email = args?["email"] ?? "بريد غير متوفر";
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               defulttext(
-                data: "المعلومات الشخصي",
+                data: "المعلومات الشخصية",
                 fSize: 16,
                 fw: FontWeight.w700,
               ),

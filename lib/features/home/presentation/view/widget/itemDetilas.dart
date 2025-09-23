@@ -6,6 +6,7 @@ import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
 import 'package:fruits_hub/features/home/data/repo_impl/Product_repo_impl.dart';
 import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
+import 'package:fruits_hub/features/home/domain/usecases/addfavoriteusecase.dart';
 import 'package:fruits_hub/features/home/domain/usecases/getBestSellingUsecase.dart';
 import 'package:fruits_hub/features/home/domain/usecases/getproductUsecase.dart';
 import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
@@ -20,209 +21,203 @@ class ItemDetilas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductCubit(
-        Getproductusecase(ProductRepoImpl()),
-        Getbestsellingusecase(ProductRepoImpl()),
-      ),
-      child: BlocConsumer<ProductCubit, ProductState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Color(0xffF3F5F7),
-              leading: Container(
+    return BlocConsumer<ProductCubit, ProductState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Color(0xffF3F5F7),
+            leading: Container(
+              padding: const EdgeInsets.all(0),
+    
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: IconButton(
                 padding: const EdgeInsets.all(0),
-
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: IconButton(
-                  padding: const EdgeInsets.all(0),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    color: Colors.black,
-                    size: 20,
-                  ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: Colors.black,
+                  size: 20,
                 ),
               ),
             ),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/cartitembackground.png",
-                          ),
-                          fit: BoxFit.fill,
+          ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          "assets/images/cartitembackground.png",
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(70.0),
-                        child: Image.network(product.image, fit: BoxFit.fill),
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              defulttext(
-                                data: product.name,
-                                fSize: 16,
-                                fw: FontWeight.bold,
-                              ),
-                              SizedBox(height: 10),
-                              defulttext(
-                                data: "${product.price} حنية /الكيلو" as String,
-                                fSize: 14,
-                                color: Colors.amber,
-                                fw: FontWeight.bold,
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 10),
-                          Spacer(),
-
-                          SizedBox(width: 50),
-                        ],
-                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(70.0),
+                      child: Image.network(product.image, fit: BoxFit.fill),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(Assets.imagestar),
-                          SizedBox(width: 4),
-                          defulttext(
-                            data: "${product.avgRating}",
-                            fSize: 16,
-                            fw: FontWeight.bold,
-                          ),
-                          SizedBox(width: 10),
-
-                          defulttext(
-                            data: "(+20)",
-                            color: Colors.grey,
-                            fSize: 16,
-                            fw: FontWeight.bold,
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "للمراجعة",
-                              style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            defulttext(
+                              data: product.name,
+                              fSize: 16,
+                              fw: FontWeight.bold,
+                            ),
+                            SizedBox(height: 10),
+                            defulttext(
+                              data: "${product.price} حنية /الكيلو" as String,
+                              fSize: 14,
+                              color: Colors.amber,
+                              fw: FontWeight.bold,
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 10),
+                        Spacer(),
+    
+                        SizedBox(width: 50),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(Assets.imagestar),
+                        SizedBox(width: 4),
+                        defulttext(
+                          data: "${product.avgRating.toStringAsFixed(2)}",
+                          fSize: 16,
+                          fw: FontWeight.bold,
+                        ),
+                        SizedBox(width: 10),
+    
+                        defulttext(
+                          data: "(+20)",
+                          color: Colors.grey,
+                          fSize: 16,
+                          fw: FontWeight.bold,
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "للمراجعة",
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: defulttext(
-                        color: Colors.grey,
-                        data: product.description,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: defulttext(
+                      color: Colors.grey,
+                      data: product.description,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          itemDetilesContainer(
-                            title: "عام",
-                            Suptitle: " الصلاحية",
-                            image: Assets.imageGroup1,
-                          ),
-                          product.isorginic
-                              ? itemDetilesContainer(
-                                  title: "100%",
-                                  Suptitle: " اورجانيك",
-                                  image: Assets.imageGroup2,
-                                )
-                              : SizedBox(
-                                  child: Container(
-                                    height: 80,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                  ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        itemDetilesContainer(
+                          title: "عام",
+                          Suptitle: " الصلاحية",
+                          image: Assets.imageGroup1,
+                        ),
+                        product.isorginic
+                            ? itemDetilesContainer(
+                                title: "100%",
+                                Suptitle: " اورجانيك",
+                                image: Assets.imageGroup2,
+                              )
+                            : SizedBox(
+                                child: Container(
+                                  height: 80,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
                                 ),
-                        ],
-                      ),
+                              ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          itemDetilesContainer(
-                            title: "${product.numberofCaluries} كالوري",
-                            Suptitle: " 100 جرام",
-                            image: Assets.imageGroup3,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        itemDetilesContainer(
+                          title: "${product.numberofCaluries} كالوري",
+                          Suptitle: " 100 جرام",
+                          image: Assets.imageGroup3,
+                        ),
+                        GestureDetector(
+                          onTap: () => navigat(
+                            context,
+                            widget: reviewView(product_id: product.id),
                           ),
-                          GestureDetector(
-                            onTap: () => navigat(
-                              context,
-                              widget: reviewView(product_id: product.id),
-                            ),
-                            child: itemDetilesContainer(
-                              title: "${product.avgRating}",
-                              Suptitle: " التقييم",
-                              image: Assets.imageGroup4,
-                            ),
+                          child: itemDetilesContainer(
+                            title: "${product.avgRating.toStringAsFixed(2)}",
+                            Suptitle: " التقييم",
+                            image: Assets.imageGroup4,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomButton(
-                        onPressed: () {
-                          context.read<CartCubit>().addproduct(product);
-                          Navigator.pop(context);
-                          // Navigator.pushAndRemoveUntil(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => Mainviewbolcconsumer(),
-                          //   ), // Replace with your actual main view class
-                          //   (route) => false,
-                          // );
-                          // Optional: Show a snackbar to confirm addition
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("تم إضافة المنتج إلى السلة"),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                        },
-                        text: "أضف الي السلة",
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomButton(
+                      onPressed: () {
+                        context.read<CartCubit>().addproduct(product);
+                        Navigator.pop(context);
+                        // Navigator.pushAndRemoveUntil(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => Mainviewbolcconsumer(),
+                        //   ), // Replace with your actual main view class
+                        //   (route) => false,
+                        // );
+                        // Optional: Show a snackbar to confirm addition
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("تم إضافة المنتج إلى السلة"),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
+                      text: "أضف الي السلة",
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

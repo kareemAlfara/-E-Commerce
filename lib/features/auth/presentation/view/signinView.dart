@@ -15,6 +15,7 @@ import 'package:fruits_hub/features/auth/domain/usecases/signout.dart';
 import 'package:fruits_hub/features/auth/presentation/SigninCubit/signin_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
+import 'package:fruits_hub/features/home/presentation/view/mainView.dart';
 import 'package:svg_flutter/svg.dart';
 
 import '../../domain/usecases/facebookSignin.dart';
@@ -49,7 +50,7 @@ class Signinview extends StatelessWidget {
               msg: 'تم إنشاء الحساب بنجاح',
               backgroundColor: Colors.green,
             );
-              Navigator.pushReplacementNamed(context, Home.routeName);
+              Navigator.pushReplacementNamed(context, Mainview.routeName);
           } else if (state is GoogleSigninFailureState) {
             Fluttertoast.showToast(
               msg: state.error,

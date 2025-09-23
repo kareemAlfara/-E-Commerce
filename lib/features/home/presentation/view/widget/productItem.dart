@@ -7,8 +7,10 @@ import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/features/home/data/models/productmodel.dart';
 import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
 import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
+import 'package:fruits_hub/features/home/presentation/productcubit/product_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/itemDetilas.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/ourProductswidget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class productItem extends StatelessWidget {
   const productItem({super.key, required this.model});
@@ -25,27 +27,15 @@ class productItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
+            favoriteiconWidget(product_id: model.id),
             GestureDetector(
               onTap: () {
-                navigat(
-                  context,
-                  widget: ItemDetilas(
-                   product: model,
-                  ),
-                );
+                navigat(context, widget: ItemDetilas(product: model));
               },
               child: Center(
-                child:   model.image != null
-                    ? Image.network(
-                  model.image,
-                  fit: BoxFit.fill,
-                  height: 130,
-                ): Container(
-                        color: Colors.grey,
-                        height: 100,
-                        width: 100,
-                      ),
+                child: model.image != null
+                    ? Image.network(model.image, fit: BoxFit.fill, height: 130)
+                    : Container(color: Colors.grey, height: 100, width: 100),
               ),
             ),
             // SizedBox(height: 12),
@@ -70,7 +60,6 @@ class productItem extends StatelessWidget {
                   child: IconButton(
                     onPressed: () {
                       context.read<CartCubit>().addproduct(model);
-                
                     },
                     icon: Icon(Icons.add),
                     color: Colors.white,
@@ -81,6 +70,56 @@ class productItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class favoriteiconWidget extends StatefulWidget {
+  const favoriteiconWidget({super.key, required this.product_id});
+  final int product_id;
+
+  @override
+  State<favoriteiconWidget> createState() => _favoriteiconWidgetState();
+}
+
+class _favoriteiconWidgetState extends State<favoriteiconWidget> {
+  String? userId;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('user_id');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ProductCubit, ProductState>(
+      builder: (context, state) {
+        final cubit = context.read<ProductCubit>();
+        final isFav = cubit.isFavorite(widget.product_id);
+
+        return IconButton(
+          onPressed: userId == null
+              ? null
+              : () {
+                  cubit.toggleFavorite(
+                    productId: widget.product_id,
+                    userId: userId!,
+                  );
+                },
+          icon: Icon(
+            isFav ? Icons.favorite : Icons.favorite_border,
+            color: isFav ? Colors.red : null,
+          ),
+        );
+      },
     );
   }
 }

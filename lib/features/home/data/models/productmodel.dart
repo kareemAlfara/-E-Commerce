@@ -1,4 +1,5 @@
 import 'package:fruits_hub/core/helper_functions/get_avg_rating.dart';
+import 'package:fruits_hub/features/home/data/models/favoritModel.dart';
 import 'package:fruits_hub/features/home/data/models/reviewModel.dart';
 import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
 
@@ -16,7 +17,9 @@ class Productmodel {
   final String image;
   final String code;
   final List<Reviewmodel> reviews;
+  final List<Favoritmodel> favorits;
   Productmodel({
+    required this.favorits,
     required this.avgRating,
     required this.numberofCaluries,
     required this.isorginic,
@@ -33,6 +36,7 @@ class Productmodel {
   Productsentities toEntity() {
     return Productsentities(
       id: id,
+    favorites: favorits.map((e) => e.toEntity()).toList(),
       numberofCaluries: numberofCaluries,
       avgRating: avgRating,
       isorginic: isorginic,
@@ -64,7 +68,12 @@ class Productmodel {
           ? []
           : List<Reviewmodel>.from(
               json['reviews'].map((e) => Reviewmodel.fromJson(e)),
+
             ),
+              favorits: json['favorite'] == null
+          ? []
+          : List<Favoritmodel>.from(
+              json['favorite'].map((e) => Favoritmodel.fromJson(e)),),
       name: json['productname'],
       price: json['productprice'],
       description: json['description'],

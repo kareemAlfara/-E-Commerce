@@ -11,6 +11,8 @@ import 'package:fruits_hub/features/auth/presentation/SigninCubit/signin_cubit.d
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
 import 'package:svg_flutter/svg.dart';
 
+import '../../Cartcubit/cart_cubit.dart';
+
 class CustomAppbarWidget extends StatelessWidget {
   const CustomAppbarWidget({super.key});
 
@@ -84,6 +86,7 @@ class CustomAppbarWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   await cubit.signOut();
+                  context.read<CartCubit>().allcartEntiy.cartlist.clear();
                   Navigator.of(
                     context,
                   ).pushReplacementNamed(Signinview.routeName);

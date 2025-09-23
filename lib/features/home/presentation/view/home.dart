@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/features/home/data/repo_impl/Product_repo_impl.dart';
+import 'package:fruits_hub/features/home/domain/usecases/addfavoriteusecase.dart';
 import 'package:fruits_hub/features/home/domain/usecases/getBestSellingUsecase.dart';
 import 'package:fruits_hub/features/home/domain/usecases/getproductUsecase.dart';
 import 'package:fruits_hub/features/home/presentation/productcubit/product_cubit.dart';
@@ -54,36 +55,28 @@ class Home extends StatelessWidget {
                       fw: FontWeight.bold,
                       fSize: 20,
                     ),
-                    BlocProvider(
-                      create: (context) =>
-                          ProductCubit(Getproductusecase(ProductRepoImpl()),
-                          Getbestsellingusecase(ProductRepoImpl())
-                          
-                          )
-                          ..Getbestselling(),
-                      child: BlocConsumer<ProductCubit, ProductState>(
-                        listener: (context, state) {
-                          var cubit = context.read<ProductCubit>();
-                      
-                          // TODO: implement listener
-                        },
-                        builder: (context, state) {
-                          return TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                TheMostSale.routeName,
-                              );
-                            },
-                            child: defulttext(
-                              data: "المزيد",
-                              color: Colors.grey,
-                              fSize: 18,
-                              fw: FontWeight.w500,
-                            ),
-                          );
-                        },
-                      ),
+                    BlocConsumer<ProductCubit, ProductState>(
+                      listener: (context, state) {
+                        var cubit = context.read<ProductCubit>();
+                    
+                        // TODO: implement listener
+                      },
+                      builder: (context, state) {
+                        return TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              TheMostSale.routeName,
+                            );
+                          },
+                          child: defulttext(
+                            data: "المزيد",
+                            color: Colors.grey,
+                            fSize: 18,
+                            fw: FontWeight.w500,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

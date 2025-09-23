@@ -18,11 +18,13 @@ class reviewView extends StatelessWidget {
     return BlocConsumer<AddReviewCubit, AddReviewState>(
       listener: (context, state) {
         var cubit = context.read<AddReviewCubit>();
-    
-        if(state is AddReviewsuccess){
+
+        if (state is AddReviewsuccess) {
           cubit.descriptioncontroller.clear();
           cubit.ratingcontroller.clear();
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Review Added')));
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Review Added')));
         }
         // TODO: implement listener
       },
@@ -44,7 +46,7 @@ class reviewView extends StatelessWidget {
                       }
                       return null;
                     },
-                        
+
                     title: " rating",
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
@@ -58,46 +60,51 @@ class reviewView extends StatelessWidget {
                       }
                       return null;
                     },
-                        
+
                     title: " description message",
                     textInputAction: TextInputAction.next,
                   ),
                   SizedBox(height: 28),
+                  // Switch(
+                  //   value: cubit.isfavorite,
+                  //   onChanged: (value) {
+                  //     cubit.isfavoritechange(value);
+                  //     log(value.toString());
+                  //     ;
+                  //   },
+                  // ),
+                  SizedBox(height: 28),
                   Center(
                     child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                          ),
-                          onPressed: () async {
-                                final prefs = await SharedPreferences.getInstance();
-                          final userId = prefs.getString('user_id');
-                          final username = prefs.getString('username');
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        final userId = prefs.getString('user_id');
+                        final username = prefs.getString('username');
                         log(username.toString());
-                            if (cubit.formkey.currentState!.validate()) {
-                               cubit.addreview(
-                                descriptionmessage:
-                                    cubit.descriptioncontroller.text,
-                                name: 
-                                  username!,
-                                product_id: product_id,
-                                // product_id,
-                                user_id:  userId!,
-                            
-                                    //  "e4075906-b6f3-495b-b612-5efc34c808b6",
-                                ratingcount:
-                                    num.tryParse(cubit.ratingcontroller.text) ??
-                                    0,
-                              );
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(18.0),
-                            child: defulttext(
-                              data: "  Add product  ",
-                              fSize: 18,
-                            ),
-                          ),
-                        )
+                        if (cubit.formkey.currentState!.validate()) {
+
+                          cubit.addreview(
+                            descriptionmessage:
+                                cubit.descriptioncontroller.text,
+                            name: username!,
+                            product_id: product_id,
+                            // product_id,
+                            user_id: userId!,
+
+                            //  "e4075906-b6f3-495b-b612-5efc34c808b6",
+                            ratingcount:
+                                num.tryParse(cubit.ratingcontroller.text) ?? 0,
+                          );
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: defulttext(data: "  Add product  ", fSize: 18),
+                      ),
+                    ),
                   ),
                 ],
               ),

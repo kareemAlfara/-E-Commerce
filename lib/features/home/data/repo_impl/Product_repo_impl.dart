@@ -1,20 +1,22 @@
+import 'package:fruits_hub/features/home/data/models/favoritModel.dart';
 import 'package:fruits_hub/features/home/data/models/reviewModel.dart';
 import 'package:fruits_hub/features/home/data/repo/product_repo.dart';
+import 'package:fruits_hub/features/home/domain/entites/favoritEntity.dart';
 import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
 import 'package:fruits_hub/features/home/domain/entites/reviewEntity.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/productmodel.dart';
 
-class ProductRepoImpl implements ProductRepo{
+class ProductRepoImpl implements ProductRepo {
   @override
-    Future<List<Productsentities>> getProducts() async {
+  Future<List<Productsentities>> getProducts() async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*, reviews(*)')
           .order('created_at', ascending: false);
-      
+
       if (response.isEmpty) {
         print("No products found in database");
         return [];
@@ -29,10 +31,9 @@ class ProductRepoImpl implements ProductRepo{
           // Continue with other products even if one fails to parse
         }
       }
-      
+
       print("Successfully loaded ${products.length} products");
       return products;
-      
     } on PostgrestException catch (e) {
       print("Supabase error: ${e.message}");
       throw Exception("Database error: ${e.message}");
@@ -41,44 +42,40 @@ class ProductRepoImpl implements ProductRepo{
       throw Exception("Failed to load products: $e");
     }
   }
-  
+
   @override
-  Future<Reviewentity> addreviews(
-      {required String descriptionmessage,   
-      required String name,
-      required int product_id,
-      required String user_id,
-      required num ratingcount,
-      }   
-  ) async{
-  await Supabase.instance.client.from("reviews").insert({
+  Future<Reviewentity> addreviews({
+    required String descriptionmessage,
+    required String name,
+    required int product_id,
+    required String user_id,
+    required num ratingcount,
+  }) async {
+    await Supabase.instance.client.from("reviews").insert({
       "descriptionmessage": descriptionmessage,
       "name": name,
       "product_id": product_id,
       "user_id": user_id,
-      "ratingcount": ratingcount
-      
+      "ratingcount": ratingcount,
     });
-return Reviewmodel.fromJson({
-  "descriptionmessage": descriptionmessage,
-  "name": name,
-  "product_id": product_id,
-  "user_id": user_id,
-  "ratingcount": ratingcount
-
-}).toEntity();
+    return Reviewmodel.fromJson({
+      "descriptionmessage": descriptionmessage,
+      "name": name,
+      "product_id": product_id,
+      "user_id": user_id,
+      "ratingcount": ratingcount,
+    }).toEntity();
   }
-  
+
   @override
-  Future<List<Productsentities>> getBestSellingProducts() async{
+  Future<List<Productsentities>> getBestSellingProducts() async {
     try {
       final response = await Supabase.instance.client
           .from('products')
           .select('*, reviews(*)')
-          .order('sellingCount', ascending: false
-          
-          ).limit(6);
-      
+          .order('sellingCount', ascending: false)
+          .limit(6);
+
       if (response.isEmpty) {
         print("No products found in database");
         return [];
@@ -93,10 +90,9 @@ return Reviewmodel.fromJson({
           // Continue with other products even if one fails to parse
         }
       }
-      
+
       print("Successfully loaded ${products.length} products");
       return products;
-      
     } on PostgrestException catch (e) {
       print("Supabase error: ${e.message}");
       throw Exception("Database error: ${e.message}");
@@ -106,4 +102,43 @@ return Reviewmodel.fromJson({
     }
   }
 
+  @override
+  Future<favoritEntity> addfavorite({
+    required int product_id,
+    required String user_id,
+    required bool isfavorite,
+  }) async {
+    await Supabase.instance.client.from("favorite").insert({
+      "product_id": product_id,
+      "user_id": user_id,
+      "isfavorite": isfavorite,
+    });
+    return Favoritmodel.fromJson({
+      "product_id": product_id,
+      "user_id": user_id,
+      "isfavorite": isfavorite,
+    }).toEntity();
+  }
+  @override
+  Future<List<Productsentities>> getFavoriteProducts(String userId) async {
+  try {
+    final response = await Supabase.instance.client
+        .from('products')
+        .select('*, favorite!inner(*)') // join favorite
+        .eq('favorite.user_id', userId)
+        .eq('favorite.isfavorite', true);
+
+    if (response.isEmpty) return [];
+
+    List<Productsentities> products = [];
+    for (var row in response) {
+      products.add(Productmodel.fromJson(row).toEntity());
+    }
+    return products;
+  } on PostgrestException catch (e) {
+    throw Exception("Database error: ${e.message}");
+  } catch (e) {
+    throw Exception("Failed to load favorite products: $e");
+  }
+}
 }

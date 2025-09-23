@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -14,9 +12,13 @@ import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
 import 'package:fruits_hub/features/chechout/presentation/view/shippingView.dart';
 import 'package:fruits_hub/features/chechout/presentation/view/widget/checkupView.dart';
 import 'package:fruits_hub/features/home/data/repo_impl/Product_repo_impl.dart';
+import 'package:fruits_hub/features/home/domain/usecases/addfavoriteusecase.dart';
 import 'package:fruits_hub/features/home/domain/usecases/addreviewsusecase.dart';
+import 'package:fruits_hub/features/home/domain/usecases/getBestSellingUsecase.dart';
+import 'package:fruits_hub/features/home/domain/usecases/getproductUsecase.dart';
 import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/addreviewcubit/add_review_cubit.dart';
+import 'package:fruits_hub/features/home/presentation/productcubit/product_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/home.dart';
 import 'package:fruits_hub/features/home/presentation/view/mainView.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/mainviewbody.dart';
@@ -29,7 +31,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:app_links/app_links.dart';
 
 void main(List<String> args) async {
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = CustomBlocObserver();
 
   await Supabase.initialize(
@@ -42,10 +44,10 @@ void main(List<String> args) async {
   final userId = prefs.getString('user_id');
   log(userId.toString());
   // Listen for incoming deep links
-final appLinks = AppLinks();
-appLinks.uriLinkStream.listen((uri) {
-  print("🔗 DeepLink received: $uri");
-});
+  final appLinks = AppLinks();
+  appLinks.uriLinkStream.listen((uri) {
+    print("🔗 DeepLink received: $uri");
+  });
   runApp(MyApp(isLoggedIn: userId != null));
   // runApp(const MyApp());
 }
@@ -57,34 +59,42 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => CartCubit()),
         BlocProvider(
-          create: (context) => CartCubit(),
-        ),
-          BlocProvider(
           create: (context) => AddReviewCubit(
             addreviewsusecase(ProductRepoImpl()),
+          
           ),
         ),
+          BlocProvider(
+          create: (context) => ProductCubit(
+            Getproductusecase(ProductRepoImpl()),
+            Getbestsellingusecase(ProductRepoImpl()),
+            GetFavoriteProductsUsecase(ProductRepoImpl()),
+            Addfavoriteusecase(ProductRepoImpl()),
+          
+          )..getAllproduct(),
+        ),
       ],
-      child:MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Cairo',
-        scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
-      ),
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      locale: const Locale('ar'),
-      onGenerateRoute: OnGenerateRoutes.generateRoute,
-      initialRoute: isLoggedIn ? Mainview.routeName : SplashView.routeName,
+      child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Cairo',
+          scaffoldBackgroundColor: Colors.white,
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+        ),
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        locale: const Locale('ar'),
+        onGenerateRoute: OnGenerateRoutes.generateRoute,
+        initialRoute: isLoggedIn ? Mainview.routeName : SplashView.routeName,
 
-      debugShowCheckedModeBanner: false,
-    ),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

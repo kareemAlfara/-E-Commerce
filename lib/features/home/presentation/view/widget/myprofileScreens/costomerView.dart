@@ -3,6 +3,7 @@ import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/addnewCard.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/favoritepage.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/homeprofileScreen.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/myorders.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/profilePayments.dart';
@@ -38,6 +39,10 @@ class CustomerView extends StatelessWidget {
         }  else if (settings.name == 'whoare') {
           return MaterialPageRoute(
               builder: (_) => const Whoare());
+        }
+         else if (settings.name == 'Favoritepage') {
+          return MaterialPageRoute(
+              builder: (_) => const Favoritepage());
         }
         return MaterialPageRoute(builder: (_) =>  homeprofileScreen());
       },

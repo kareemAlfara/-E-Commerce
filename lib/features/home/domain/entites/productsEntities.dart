@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fruits_hub/features/home/data/models/reviewModel.dart';
+import 'package:fruits_hub/features/home/domain/entites/favoritEntity.dart';
 import 'package:fruits_hub/features/home/domain/entites/reviewEntity.dart';
 
 class Productsentities extends Equatable {
@@ -15,10 +16,12 @@ class Productsentities extends Equatable {
   final bool isorginic;
 
 final List<Reviewentity>reviews;
+final List<favoritEntity>favorites;
   // File? fileFile;
 
   Productsentities( {
 
+    required this.favorites,
     required this.reviews,
     required this.avgRating,
     required this.isorginic,
