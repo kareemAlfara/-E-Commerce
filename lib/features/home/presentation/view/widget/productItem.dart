@@ -106,19 +106,22 @@ class _favoriteiconWidgetState extends State<favoriteiconWidget> {
         final isFav = cubit.isFavorite(widget.product_id);
 
         return IconButton(
-          onPressed: userId == null
-              ? null
-              : () {
-                  cubit.toggleFavorite(
-                    productId: widget.product_id,
-                    userId: userId!,
-                  );
-                },
-          icon: Icon(
-            isFav ? Icons.favorite : Icons.favorite_border,
-            color: isFav ? Colors.red : null,
-          ),
-        );
+  icon: Icon(
+    context.read<ProductCubit>().isFavorite(widget.product_id)
+        ? Icons.favorite
+        : Icons.favorite_border,
+    color: context.read<ProductCubit>().isFavorite(widget.product_id)
+        ? Colors.red
+        : null,
+  ),
+  onPressed: () {
+    // final userId = currentUserId; // from SharedPreferences
+    context.read<ProductCubit>().toggleFavorite(
+      productId: widget.product_id,
+      userId: userId!,
+    );
+  },
+);
       },
     );
   }

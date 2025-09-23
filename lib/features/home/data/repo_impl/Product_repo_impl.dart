@@ -4,6 +4,7 @@ import 'package:fruits_hub/features/home/data/repo/product_repo.dart';
 import 'package:fruits_hub/features/home/domain/entites/favoritEntity.dart';
 import 'package:fruits_hub/features/home/domain/entites/productsEntities.dart';
 import 'package:fruits_hub/features/home/domain/entites/reviewEntity.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/ourProductswidget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/productmodel.dart';
@@ -102,43 +103,76 @@ class ProductRepoImpl implements ProductRepo {
     }
   }
 
+  // @override 
+  //  Future<favoritEntity> addfavorite({
+  //   required int product_id,
+  //   required String user_id,
+  //   required bool isfavorite,
+  // }) async {
+  // if (isfavorite) {
+  //   // Insert only if true (and avoid duplicates)
+  //   await Supabase.instance.client.from('favorite').upsert({
+  //     'product_id': product_id,
+  //     'user_id': user_id,
+  //     'isfavorite': true,
+  //   }, onConflict: 'user_id,product_id');
+  // } else {
+  //   // ❌ If false → delete the record entirely
+  //   await Supabase.instance.client
+  //       .from('favorite')
+  //       .delete()
+  //       .eq('user_id', user_id)
+  //       .eq('product_id', product_id);
+  // }
+  //   return Favoritmodel.fromJson({
+  //     "product_id": product_id,
+  //     "user_id": user_id,
+  //     "isfavorite": isfavorite,
+  //   }).toEntity();
+  // }
   @override
-  Future<favoritEntity> addfavorite({
-    required int product_id,
-    required String user_id,
-    required bool isfavorite,
-  }) async {
-    await Supabase.instance.client.from("favorite").insert({
-      "product_id": product_id,
-      "user_id": user_id,
-      "isfavorite": isfavorite,
-    });
-    return Favoritmodel.fromJson({
-      "product_id": product_id,
-      "user_id": user_id,
-      "isfavorite": isfavorite,
-    }).toEntity();
-  }
-  @override
-  Future<List<Productsentities>> getFavoriteProducts(String userId) async {
-  try {
-    final response = await Supabase.instance.client
-        .from('products')
-        .select('*, favorite!inner(*)') // join favorite
-        .eq('favorite.user_id', userId)
-        .eq('favorite.isfavorite', true);
+Future<List<Productsentities>> getFavoriteProducts(String userId) async {
+  final res = await Supabase.instance.client
+      .from('favorite')
+      .select('products(*)')       // we only need the joined product details
+      .eq('user_id', userId)
+      .eq('isfavorite', true);     // only favorites
 
-    if (response.isEmpty) return [];
+  if (res.isEmpty) return [];
 
-    List<Productsentities> products = [];
-    for (var row in response) {
-      products.add(Productmodel.fromJson(row).toEntity());
-    }
-    return products;
-  } on PostgrestException catch (e) {
-    throw Exception("Database error: ${e.message}");
-  } catch (e) {
-    throw Exception("Failed to load favorite products: $e");
-  }
+  return res.map<Productsentities>((row) {
+    final productJson = row['products']; // 🔹 extract nested product object
+    return Productmodel.fromJson(productJson).toEntity();
+  }).toList();
 }
+   @override
+  Future<favoritEntity> addFavorite({
+    required int productId,
+    required String userId,
+  }) async {
+    final res = await Supabase.instance.client.from('favorite').insert({
+      'product_id': productId,
+      'user_id': userId,
+      'isfavorite': true,
+    }).select().single();
+
+    return favoritEntity(
+      product_id: res['product_id'],
+      user_id: res['user_id'],
+      isfavorite: true,
+    );
+  }
+
+  @override
+  Future<void> deleteFavorite({
+    required int productId,
+    required String userId,
+  }) async {
+    await Supabase.instance.client
+        .from('favorite')
+        .delete()
+        .eq('product_id', productId)
+        .eq('user_id', userId);
+  }
+
 }

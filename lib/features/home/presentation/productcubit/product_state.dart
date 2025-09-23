@@ -48,3 +48,30 @@ final class AddFavotitefailur extends ProductState {
 
   AddFavotitefailur({required this.error});
 }
+// class GetFavoritesLoadingState extends ProductState {}
+// class GetFavoritesSuccessState extends ProductState {
+//   final List<Productsentities> favorites;
+//   GetFavoritesSuccessState(this.favorites);
+// }
+// class GetFavoritesFailureState extends ProductState {
+//   final String error;
+//   GetFavoritesFailureState(this.error);
+// }
+
+class AddFavoriteSuccess extends ProductState {
+  final int productId;
+  AddFavoriteSuccess(this.productId);
+}
+class AddFavoriteFailure extends ProductState {
+  final String error;
+  AddFavoriteFailure(this.error);
+}
+
+class DeleteFavoriteSuccess extends ProductState {
+  final int productId;
+  DeleteFavoriteSuccess(this.productId);
+}
+class DeleteFavoriteFailure extends ProductState {
+  final String error;
+  DeleteFavoriteFailure(this.error);
+}

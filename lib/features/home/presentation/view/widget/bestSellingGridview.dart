@@ -10,56 +10,63 @@ import 'package:fruits_hub/features/home/presentation/productcubit/product_cubit
 import 'package:fruits_hub/features/home/presentation/view/widget/productGridView.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/productItem.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/shimmer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class bestSellingGridview extends StatelessWidget {
-  const bestSellingGridview({super.key});
+class BestSellingGridView extends StatefulWidget {
+  const BestSellingGridView({super.key});
+
+  @override
+  State<BestSellingGridView> createState() => _BestSellingGridViewState();
+}
+
+class _BestSellingGridViewState extends State<BestSellingGridView> {
+  @override
+  String? userId;
+  Future<void> _loadUserData() async {
+  final prefs = await SharedPreferences.getInstance();
+  final loadedId = prefs.getString('user_id');
+  setState(() {
+    userId = loadedId;
+
+  });
+
+  if (loadedId != null && mounted) {
+    context.read<ProductCubit>().loadFavorites(loadedId); // 🔹 preload
+  }
+}
+  void initState() {
+    super.initState();
+    _loadUserData(); // Load user data on init
+    // Trigger best-selling fetch on this page only
+    context.read<ProductCubit>().Getbestselling();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductCubit(
-        Getproductusecase(ProductRepoImpl()),
-        Getbestsellingusecase(ProductRepoImpl()),
-        GetFavoriteProductsUsecase( ProductRepoImpl()),
-        Addfavoriteusecase(ProductRepoImpl()),
-        
-      )..Getbestselling(),
-
-      child: BlocConsumer<ProductCubit, ProductState>(
-        listener: (context, state) {
-          if (state is getbestsellingloadingstate) {}
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-
-          var cubit = context.read<ProductCubit>();
-    if (state is getbestsellingloadingstate) {
-  return Skeletonizer(
-    enabled: true,
-    child: DynamicHeightGridView(
-      physics: const NeverScrollableScrollPhysics(), // Disable inner scrolling
-      shrinkWrap: true, // Important: makes grid take only needed space
-      builder: (context, index) => productItem(model: getDummyProduct()),
-      itemCount: 6,
-      crossAxisCount: 2,
-    ),
-  );
-} else {
-            return DynamicHeightGridView(
-              physics:
-                  const NeverScrollableScrollPhysics(), // Disable inner scrolling
-              shrinkWrap: true, // Important: makes grid take only needed space
-
-              builder: (context, index) =>
-                  productItem(model: cubit.bestselling[index]),
-              itemCount: cubit.bestselling.length,
+    return BlocBuilder<ProductCubit, ProductState>(
+      builder: (context, state) {
+        final cubit = context.watch<ProductCubit>();
+        if (state is getbestsellingloadingstate) {
+          return Skeletonizer(
+            enabled: true,
+            child: DynamicHeightGridView(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              builder: (_, __) => productItem(model: getDummyProduct()),
+              itemCount: 6,
               crossAxisCount: 2,
-            );
-          }
-          
-        },
-      ),
+            ),
+          );
+        }
+        return DynamicHeightGridView(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          builder: (_, i) => productItem(model: cubit.bestselling[i]),
+          itemCount: cubit.bestselling.length,
+          crossAxisCount: 2,
+        );
+      },
     );
   }
 }

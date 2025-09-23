@@ -13,11 +13,13 @@ part 'product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
   final Getproductusecase getproductusecase;
-    final Addfavoriteusecase addfavoriteusecas;
+  final AddFavoriteUsecase addFavoriteUsecase;
+  final DeleteFavoriteUsecase deleteFavoriteUsecase;
+  final GetFavoriteProductsUsecase getFavoritesUsecase;
   final Getbestsellingusecase getbestsellingusecase;
   final GetFavoriteProductsUsecase getFavoriteProductsUsecase;
   ProductCubit(this.getproductusecase, this.getbestsellingusecase,
-      this.getFavoriteProductsUsecase, this.addfavoriteusecas)
+      this.getFavoriteProductsUsecase, this.addFavoriteUsecase, this.deleteFavoriteUsecase, this.getFavoritesUsecase, )
     : super(ProductInitial());
   List<Productsentities> product = [];
   List<Productsentities> bestselling = [];
@@ -80,47 +82,93 @@ Future<void> GetFavorites(String userId) async {
   bool isFavorite(int productId) => _favorites[productId] ?? false;
 
   /// 🔹 Load favorites from Supabase when app starts or page opens
-  Future<void> loadFavorites(String userId) async {
+  // Future<void> loadFavorites(String userId) async {
+  //   try {
+  //     emit(GetFavoritesLoadingState());
+  //     final favorites = await getFavoriteProductsUsecase.call(userId);
+
+  //     // fill map with productId = true
+  //     _favorites.clear();
+  //     for (var product in favorites) {
+  //       _favorites[product.id] = true;
+  //     }
+
+  //     emit(GetFavoritesSuccessState(favorites: favorites));
+  //   } catch (e) {
+  //     emit(GetFavoritesFailureState(error: e.toString()));
+  //   }
+  // }
+
+  // /// 🔹 Toggle favorite and sync with Supabase
+  // Future<void> toggleFavorite({
+  //   required int productId,
+  //   required String userId,
+  // }) async {
+  //   final current = _favorites[productId] ?? false;
+  //   final newValue = !current;
+
+  //   // Update locally first
+  //   _favorites[productId] = newValue;
+  //   emit(isfavoritechangestate());
+
+  //   // Call API
+  //   try {
+  //     await addfavoriteusecas(
+  //       product_id: productId,
+  //       user_id: userId,
+  //       isfavorite: newValue,
+  //     );
+  //     emit(AddFavotitesuccess());
+  //   } catch (e) {
+  //     // rollback on error
+  //     _favorites[productId] = current;
+  //     emit(AddFavotitefailur(error: e.toString()));
+  //   }
+  // }
+   Future<void> deleteFavorite({
+    required int productId,
+    required String userId,
+  }) async {
     try {
-      emit(GetFavoritesLoadingState());
-      final favorites = await getFavoriteProductsUsecase.call(userId);
-
-      // fill map with productId = true
+      await deleteFavoriteUsecase(productId: productId, userId: userId);
+      _favorites[productId] = false;
+      emit(DeleteFavoriteSuccess(productId));
+    } catch (e) {
+      emit(DeleteFavoriteFailure(e.toString()));
+    }
+  }
+Future<void> addFavorite({
+    required int productId,
+    required String userId,
+  }) async {
+    try {
+      await addFavoriteUsecase(productId: productId, userId: userId);
+      _favorites[productId] = true;
+      emit(AddFavoriteSuccess(productId));
+    } catch (e) {
+      emit(AddFavoriteFailure(e.toString()));
+    }
+  }
+ Future<void> loadFavorites(String userId) async {
+    emit(GetFavoritesLoadingState());
+    try {
+      final favorites = await getFavoritesUsecase(userId);
       _favorites.clear();
-      for (var product in favorites) {
-        _favorites[product.id] = true;
+      for (final p in favorites) {
+        _favorites[p.id] = true;
       }
-
       emit(GetFavoritesSuccessState(favorites: favorites));
     } catch (e) {
       emit(GetFavoritesFailureState(error: e.toString()));
     }
   }
-
-  /// 🔹 Toggle favorite and sync with Supabase
   Future<void> toggleFavorite({
-    required int productId,
-    required String userId,
-  }) async {
-    final current = _favorites[productId] ?? false;
-    final newValue = !current;
-
-    // Update locally first
-    _favorites[productId] = newValue;
-    emit(isfavoritechangestate());
-
-    // Call API
-    try {
-      await addfavoriteusecas(
-        product_id: productId,
-        user_id: userId,
-        isfavorite: newValue,
-      );
-      emit(AddFavotitesuccess());
-    } catch (e) {
-      // rollback on error
-      _favorites[productId] = current;
-      emit(AddFavotitefailur(error: e.toString()));
-    }
-  }
+  required int productId,
+  required String userId,
+}) async {
+  // If already favorite → remove it, otherwise → add it
+  isFavorite(productId)
+      ? await deleteFavorite(productId: productId, userId: userId)
+      : await addFavorite(productId: productId, userId: userId);
+}
 }

@@ -71,7 +71,9 @@ class MyApp extends StatelessWidget {
             Getproductusecase(ProductRepoImpl()),
             Getbestsellingusecase(ProductRepoImpl()),
             GetFavoriteProductsUsecase(ProductRepoImpl()),
-            Addfavoriteusecase(ProductRepoImpl()),
+            AddFavoriteUsecase(ProductRepoImpl()),
+            DeleteFavoriteUsecase(ProductRepoImpl()), 
+            GetFavoriteProductsUsecase(ProductRepoImpl()),
           
           )..getAllproduct(),
         ),
