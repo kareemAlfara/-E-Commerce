@@ -38,10 +38,11 @@ class CartView extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(10),
-                  color: Color(0xFFEBF9F1),
+                  color: Theme.of(context).brightness == Brightness.dark  ?Colors.grey: Color(0xFFEBF9F1)  ,
 
                   child: Center(
                     child: defulttext(
+                          context: context,
                       data:
                           "لديك ${context.read<CartCubit>().allcartEntiy.cartlist.length} منتجات في سلة التسوق",
                     ),

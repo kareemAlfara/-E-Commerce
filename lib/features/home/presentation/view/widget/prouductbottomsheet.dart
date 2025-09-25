@@ -34,6 +34,8 @@ class _ProuductbottomsheetState extends State<Prouductbottomsheet> {
             ),
             const SizedBox(height: 20),
             defulttext(
+                          context: context,
+
               data: "تصنيف حسب  :",
               fSize: 22,
               fw: FontWeight.bold,
@@ -44,6 +46,8 @@ class _ProuductbottomsheetState extends State<Prouductbottomsheet> {
               children: [
                 SvgPicture.asset(Assets.imagecosticon),
                 defulttext(
+                          context: context,
+
                   data: "  السعر : ",
                   fSize: 16,
                   fw: FontWeight.w500,
@@ -68,6 +72,8 @@ class _ProuductbottomsheetState extends State<Prouductbottomsheet> {
                   height: 36,
                   child: Center(
                     child: defulttext(
+                          context: context,
+
                       data: "\$${_values.start.round()}",
                       color: Colors.black,
                       fSize: 16,
@@ -77,6 +83,8 @@ class _ProuductbottomsheetState extends State<Prouductbottomsheet> {
                 ),
                 const SizedBox(width: 10),
                 defulttext(
+                          context: context,
+
                   data: " إلي ",
                   fSize: 16,
                   fw: FontWeight.bold,
@@ -96,6 +104,8 @@ class _ProuductbottomsheetState extends State<Prouductbottomsheet> {
                   height: 36,
                   child: Center(
                     child: defulttext(
+                          context: context,
+
                       data: "\$${_values.end.round()}",
                       color: Colors.black,
                       fSize: 16,

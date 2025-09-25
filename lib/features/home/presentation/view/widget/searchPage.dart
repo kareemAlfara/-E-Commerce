@@ -36,6 +36,7 @@ class Searchpage extends StatelessWidget {
                   height: 100,
                   width: double.infinity,
                   child: defulttext(
+                    context: context,
                     data: " لا يوجد نتائج بحث",
                     fSize: 18,
                     fw: FontWeight.w700,
@@ -47,10 +48,13 @@ class Searchpage extends StatelessWidget {
               Image.asset(Assets.search),
               SizedBox(height: 20),
         
-              defulttext(data: "البحث", fSize: 17, fw: FontWeight.w600),
+              defulttext(
+                context: context,
+                data: "البحث", fSize: 17, fw: FontWeight.w600),
               SizedBox(height: 10),
         
               defulttext(
+                context: context,
                 data: "عفوا هذه المعلومات غير متوفره اللحظه",
                 color: Colors.grey,
                 fSize: 17,

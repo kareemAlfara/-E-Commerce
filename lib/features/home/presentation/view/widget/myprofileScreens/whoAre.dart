@@ -10,17 +10,20 @@ static const routeName = 'whoare';
       appBar: defaultAppBar(context: context, title: 'من نحن'),
       body: Container(
         padding: const EdgeInsets.all(16),
-        color: Colors.white,
+        // color: Colors.white,
         child: Scrollbar(
           thumbVisibility: true,
           child: SingleChildScrollView(
-            child: Text(
-              sampleText,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                fontSize: 16,
-                height: 1.8, // تباعد بين السطور مثل الصورة
-                color: Colors.black87,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                sampleText,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  fontSize: 16,
+                  height: 1.8, // تباعد بين السطور مثل الصورة
+                  // color: Colors.black87,
+                ),
               ),
             ),
           ),
@@ -30,6 +33,12 @@ static const routeName = 'whoare';
   }
 }
     const String sampleText = '''
+هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم،
+ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو
+الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص
+لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي
+كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص.
+
 هناك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم،
 ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو
 الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص

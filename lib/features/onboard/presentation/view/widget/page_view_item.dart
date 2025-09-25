@@ -51,7 +51,9 @@ class page_view_item extends StatelessWidget {
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(16),
-                        child: defulttext(data: 'تخط', color: Colors.red,fSize: 18),
+                        child: defulttext(
+                          context: context,
+                          data: 'تخط', color: Colors.red,fSize: 18),
                       ),
                     ),
                   ),
@@ -65,6 +67,7 @@ class page_view_item extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width * 0.8,
             child: defulttext(
+              context: context,
               data: subtitle,
               fSize: 17,
               textAlign: TextAlign.center,

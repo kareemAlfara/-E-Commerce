@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/helper_functions/on_generate_routes.dart';
 import 'package:fruits_hub/core/services/Shared_preferences.dart';
 import 'package:fruits_hub/core/services/custom_bloc_observer.dart';
+import 'package:fruits_hub/core/services/theme_notifier.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signupView.dart';
@@ -29,11 +30,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:app_links/app_links.dart';
-
+late final ThemeNotifier themeNotifier;
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = CustomBlocObserver();
-
+  themeNotifier = ThemeNotifier();     
   await Supabase.initialize(
     url: 'https://euudvrftyscplhfwzxli.supabase.co',
     anonKey:
@@ -53,50 +54,54 @@ void main(List<String> args) async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.isLoggedIn});
+  MyApp({super.key, required this.isLoggedIn});
   final bool isLoggedIn;
+  // final ThemeNotifier themeNotifier = ThemeNotifier();
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => CartCubit()),
-        BlocProvider(
-          create: (context) => AddReviewCubit(
-            addreviewsusecase(ProductRepoImpl()),
-          
-          ),
-        ),
-          BlocProvider(
-          create: (context) => ProductCubit(
-            Getproductusecase(ProductRepoImpl()),
-            Getbestsellingusecase(ProductRepoImpl()),
-            GetFavoriteProductsUsecase(ProductRepoImpl()),
-            AddFavoriteUsecase(ProductRepoImpl()),
-            DeleteFavoriteUsecase(ProductRepoImpl()), 
-            GetFavoriteProductsUsecase(ProductRepoImpl()),
-          
-          )..getAllproduct(),
-        ),
-      ],
-      child: MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Cairo',
-          scaffoldBackgroundColor: Colors.white,
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
-        ),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        locale: const Locale('ar'),
-        onGenerateRoute: OnGenerateRoutes.generateRoute,
-        initialRoute: isLoggedIn ? Mainview.routeName : SplashView.routeName,
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: themeNotifier,
+      builder: (context, themeMode, _) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => CartCubit()),
+            BlocProvider(
+              create: (context) =>
+                  AddReviewCubit(addreviewsusecase(ProductRepoImpl())),
+            ),
+            BlocProvider(
+              create: (context) => ProductCubit(
+                Getproductusecase(ProductRepoImpl()),
+                Getbestsellingusecase(ProductRepoImpl()),
+                GetFavoriteProductsUsecase(ProductRepoImpl()),
+                AddFavoriteUsecase(ProductRepoImpl()),
+                DeleteFavoriteUsecase(ProductRepoImpl()),
+                GetFavoriteProductsUsecase(ProductRepoImpl()),
+              )..getAllproduct(),
+            ),
+          ],
+          child: MaterialApp(
+            theme: ThemeData.light(),
+            darkTheme: ThemeData.dark(),
+            themeMode: themeMode,
+            // theme: ThemeData.dark(),
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            locale: const Locale('ar'),
+            onGenerateRoute: OnGenerateRoutes.generateRoute,
+            home: isLoggedIn
+                ? Mainview(themeNotifier: themeNotifier)
+                : SplashView(),
 
-        debugShowCheckedModeBanner: false,
-      ),
+            debugShowCheckedModeBanner: false,
+          ),
+        );
+      },
     );
   }
 }

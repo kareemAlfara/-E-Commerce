@@ -11,7 +11,8 @@ import 'package:fruits_hub/features/home/domain/usecases/getBestSellingUsecase.d
 import 'package:fruits_hub/features/home/domain/usecases/getproductUsecase.dart';
 import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/productcubit/product_cubit.dart';
-import 'package:fruits_hub/features/home/presentation/view/widget/review.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/addreview.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/reviewpage.dart';
 
 import 'package:svg_flutter/svg_flutter.dart';
 
@@ -31,7 +32,7 @@ class ItemDetilas extends StatelessWidget {
             backgroundColor: Color(0xffF3F5F7),
             leading: Container(
               padding: const EdgeInsets.all(0),
-    
+
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
@@ -77,12 +78,16 @@ class ItemDetilas extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             defulttext(
+                              context: context,
+
                               data: product.name,
                               fSize: 16,
                               fw: FontWeight.bold,
                             ),
                             SizedBox(height: 10),
                             defulttext(
+                              context: context,
+
                               data: "${product.price} حنية /الكيلو" as String,
                               fSize: 14,
                               color: Colors.amber,
@@ -92,7 +97,7 @@ class ItemDetilas extends StatelessWidget {
                         ),
                         SizedBox(width: 10),
                         Spacer(),
-    
+
                         SizedBox(width: 50),
                       ],
                     ),
@@ -104,25 +109,33 @@ class ItemDetilas extends StatelessWidget {
                         SvgPicture.asset(Assets.imagestar),
                         SizedBox(width: 4),
                         defulttext(
+                          context: context,
+
                           data: "${product.avgRating.toStringAsFixed(2)}",
                           fSize: 16,
                           fw: FontWeight.bold,
                         ),
                         SizedBox(width: 10),
-    
+
                         defulttext(
+                          context: context,
+
                           data: "(+20)",
                           color: Colors.grey,
                           fSize: 16,
                           fw: FontWeight.bold,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            navigat(context, widget: ReviewPage(
+                              product: product,
+                            ));
+                          },
                           child: Text(
                             "للمراجعة",
                             style: TextStyle(
                               color: Colors.green,
-                              fontSize: 15,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
                             ),
@@ -134,6 +147,8 @@ class ItemDetilas extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: defulttext(
+                      context: context,
+
                       color: Colors.grey,
                       data: product.description,
                     ),
@@ -254,6 +269,8 @@ class itemDetilesContainer extends StatelessWidget {
                 GestureDetector(
                   onTap: () {},
                   child: defulttext(
+                    context: context,
+
                     data: title,
                     fSize: 16,
                     fw: FontWeight.bold,
@@ -262,6 +279,8 @@ class itemDetilesContainer extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 defulttext(
+                  context: context,
+
                   data: Suptitle,
                   fSize: 14,
                   fw: FontWeight.w500,

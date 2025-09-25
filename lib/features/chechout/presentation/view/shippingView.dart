@@ -91,11 +91,17 @@ class shippingContainer extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.grey[100],
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black12.withOpacity(0.4)
+                  : Colors.grey[100],
               borderRadius: BorderRadius.circular(10),
               border: isSelected
                   ? Border.all(color: AppColors.primaryColor)
-                  : Border.all(color: Colors.white),
+                  : Border.all(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.black12.withOpacity(0.4)
+                          : Colors.white,
+                    ),
             ),
             height: 85,
             width: double.infinity,
@@ -124,9 +130,16 @@ class shippingContainer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      defulttext(data: title, fSize: 14, fw: FontWeight.w700),
+                      defulttext(
+                        context: context,
+
+                        data: title,
+                        fSize: 14,
+                        fw: FontWeight.w700,
+                      ),
                       SizedBox(height: 7),
                       defulttext(
+                        context: context,
                         data: Subtitle,
                         fSize: 14,
                         color: Colors.grey,
@@ -143,6 +156,7 @@ class shippingContainer extends StatelessWidget {
                     children: [
                       defulttext(
                         data: price,
+                        context: context,
                         fSize: 16,
                         fw: FontWeight.bold,
                         color: AppColors.primaryColor,
@@ -183,8 +197,10 @@ class Appcycle extends StatelessWidget {
                 radius: 12,
                 backgroundColor: Colors.grey[300],
                 child: defulttext(
+                  context: context,
                   data: "$index",
                   fSize: 14,
+                  color: Colors.black,
                   fw: FontWeight.bold,
                 ),
               ),
@@ -193,6 +209,7 @@ class Appcycle extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
 
           child: defulttext(
+            context: context,
             data: "$title",
             fSize: 14,
             fw: FontWeight.bold,

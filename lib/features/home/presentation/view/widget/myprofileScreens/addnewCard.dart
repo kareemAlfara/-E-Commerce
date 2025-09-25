@@ -18,6 +18,8 @@ static const routeName = 'addnewcard';
         child: Column(children: [
             SizedBox(height: 22),
                   defulitTextFormField(
+                    context: context,
+
                     // controller: cubit.paymentnamecontroller,
                     hintText: ' أسم حامل البطاقة',
                     validator: (value) {
@@ -30,6 +32,8 @@ static const routeName = 'addnewcard';
                   ),
                   SizedBox(height: 11),
                   defulitTextFormField(
+                    context: context,
+
                     // controller: cubit.paymentcardNumcontroller,
                     hintText: ' رقم البطاقة ',
                     validator: (value) {
@@ -50,6 +54,8 @@ static const routeName = 'addnewcard';
                       children: [
                         Expanded(
                           child: defulitTextFormField(
+                    context: context,
+
                             // controller: cubit.paymentDatecontroller,
                             hintText: ' تاريخ الصلاحية ',
                             validator: (value) {
@@ -64,6 +70,8 @@ static const routeName = 'addnewcard';
                         SizedBox(width: 8),
                         Expanded(
                           child: defulitTextFormField(
+                    context: context,
+
                             // controller: cubit.paymentCVVcontroller,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -95,7 +103,10 @@ static const routeName = 'addnewcard';
                           ),
                         ),
                       ),
-                      defulttext(data: "جعل البطاقة افتراضية"),
+                      defulttext(data: "جعل البطاقة افتراضية",
+                          context: context,
+                      
+                      ),
                     ],
                   ),
                   SizedBox(height: 22),

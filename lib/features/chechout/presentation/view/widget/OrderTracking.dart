@@ -27,11 +27,15 @@ class OrderTracking extends StatelessWidget {
                   image: Assets.imagefullbox,
                   children: [
                     defulttext(
+                          context: context,
+
                       data: "رقم الطلب : 123456",
                       fw: FontWeight.bold,
                       color: Colors.black,
                     ),
                     defulttext(
+                          context: context,
+
                       data: "تم الطلب 22 اكتوبر 2022",
                       fw: FontWeight.bold,
                       color: Colors.grey,
@@ -40,17 +44,23 @@ class OrderTracking extends StatelessWidget {
                     Row(
                       children: [
                         defulttext(
+                          context: context,
+
                           data: "عدد الطلبات :   ",
                           fw: FontWeight.bold,
                           color: Colors.grey,
                         ),
                         defulttext(
+                          context: context,
+
                           data: "2",
                           fw: FontWeight.bold,
                           color: Colors.black,
                         ),
                         SizedBox(width: 15),
                         defulttext(
+                          context: context,
+
                           data: "150 جنيه",
                           fw: FontWeight.bold,
                           color: Colors.black,
@@ -70,11 +80,15 @@ class OrderTracking extends StatelessWidget {
                       image: Assets.imagempty_box,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: "تتبع الطلب",
                           fw: FontWeight.bold,
                           color: Colors.black,
                         ),
                         defulttext(
+                          context: context,
+
                           data: " 22 اكتوبر 2022",
                           fw: FontWeight.bold,
                           color: Colors.grey,
@@ -93,11 +107,15 @@ class OrderTracking extends StatelessWidget {
                       image: Assets.imagempty_box,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: "تتبع الطلب",
                           fw: FontWeight.bold,
                           color: Colors.black,
                         ),
                         defulttext(
+                          context: context,
+
                           data: " 22 اكتوبر 2022",
                           fw: FontWeight.bold,
                           color: Colors.grey,
@@ -116,11 +134,15 @@ class OrderTracking extends StatelessWidget {
                       image: Assets.checked,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: "قبول  الطلب",
                           fw: FontWeight.bold,
                           color: Colors.black,
                         ),
                         defulttext(
+                          context: context,
+
                           data: " 22 اكتوبر 2022",
                           fw: FontWeight.bold,
                           color: Colors.grey,
@@ -140,11 +162,15 @@ class OrderTracking extends StatelessWidget {
                       image: Assets.location2,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: "تم شحن  الطلب",
                           fw: FontWeight.bold,
                           color: Colors.black,
                         ),
                         defulttext(
+                          context: context,
+
                           data: " 22 اكتوبر 2022",
                           fw: FontWeight.bold,
                           color: Colors.grey,
@@ -165,11 +191,15 @@ class OrderTracking extends StatelessWidget {
                       image: Assets.tranck,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: "   خرج للتوصيل",
                           fw: FontWeight.bold,
                           color: Colors.black,
                         ),
                         defulttext(
+                          context: context,
+
                           data: " قيد الانتظار  ",
                           fw: FontWeight.bold,
                           color: Colors.grey,
@@ -189,6 +219,8 @@ class OrderTracking extends StatelessWidget {
                       image: Assets.bike,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: "تم الاستلام ",
                           fw: FontWeight.bold,
                           color: Colors.black,

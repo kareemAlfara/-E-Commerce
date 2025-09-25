@@ -49,9 +49,9 @@ class Home extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    defulttext(
+                    defulttext(                  context: context,
                       data: "الأكثر مبيعاً",
-                      color: Colors.black,
+                      // color: Colors.black,
                       fw: FontWeight.bold,
                       fSize: 20,
                     ),
@@ -70,6 +70,7 @@ class Home extends StatelessWidget {
                             );
                           },
                           child: defulttext(
+                            context: context,
                             data: "المزيد",
                             color: Colors.grey,
                             fSize: 18,

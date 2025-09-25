@@ -57,6 +57,7 @@ class Paymentsuccess extends StatelessWidget {
           ),
           SizedBox(height: 7),
           defulttext(
+            context: context,
             data: "رقم الطلب : 123456",
             fw: FontWeight.bold,
             color: Colors.grey,

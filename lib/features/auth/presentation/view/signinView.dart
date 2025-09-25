@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart' show Fluttertoast;
 import 'package:fruits_hub/core/services/Shared_preferences.dart';
+import 'package:fruits_hub/core/services/theme_notifier.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
@@ -22,9 +23,9 @@ import '../../domain/usecases/facebookSignin.dart';
 import 'forgetPassword.dart';
 
 class Signinview extends StatelessWidget {
-  const Signinview({super.key});
+  const Signinview({super.key, required this.themeNotifier});
   static const routeName = 'signin';
-
+final ThemeNotifier themeNotifier;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -75,6 +76,8 @@ class Signinview extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
 
                       child: defulitTextFormField(
+                    context: context,
+
                         controller: cubit.emailcontroller,
                         hintText: 'البريد الإلكتروني',
                         validator: (value) {
@@ -90,6 +93,8 @@ class Signinview extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: defulitTextFormField(
+                    context: context,
+
                         controller: cubit.passcontroller,
                         hintText: 'كلمة المرور',
                         isobscure: cubit.issecure,
@@ -125,6 +130,8 @@ class Signinview extends StatelessWidget {
                               );
                             },
                             child: defulttext(
+                          context: context,
+
                               data: 'نسيت كلمة المرور؟',
                               color: AppColors.lightPrimaryColor,
                               fw: FontWeight.w600,
@@ -155,6 +162,7 @@ class Signinview extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         defulttext(
+                          context: context,
                           data: 'لا تمتلك حساب؟ ',
                           fSize: 16,
                           color: Colors.grey,
@@ -169,6 +177,8 @@ class Signinview extends StatelessWidget {
                           },
                           style: TextButton.styleFrom(padding: EdgeInsets.zero),
                           child: defulttext(
+                          context: context,
+
                             data: 'قم بإنشاء حساب',
                             fSize: 16,
                             color: AppColors.lightPrimaryColor,
@@ -187,6 +197,8 @@ class Signinview extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.4,
                         ),
                         defulttext(
+                          context: context,
+
                           data: 'أو',
                           fSize: 16,
                           color: Colors.black,

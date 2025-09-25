@@ -17,7 +17,7 @@ class productBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: defaultAppBar(
         automaticallyImplyLeading: false,
         context: context,
@@ -46,8 +46,10 @@ class productBody extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     defulttext(
+                          context: context,
+
                       data: "منتجاتنا",
-                      color: Colors.black,
+                      // color: Colors.black,
                       fw: FontWeight.w500,
                       fSize: 17,
                     ),
@@ -90,8 +92,10 @@ class productBody extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     defulttext(
+                          context: context,
+
                       data: "الأكثر مبيعاً",
-                      color: Colors.black,
+                      // color: Colors.black,
                       fw: FontWeight.bold,
                       fSize: 20,
                     ),
@@ -100,6 +104,8 @@ class productBody extends StatelessWidget {
                         Navigator.pushNamed(context, TheMostSale.routeName);
                       },
                       child: defulttext(
+                          context: context,
+
                         data: "المزيد",
                         color: Colors.grey,
                         fSize: 18,

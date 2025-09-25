@@ -21,11 +21,13 @@ class ProfilePayments extends StatelessWidget {
           SizedBox(height: 17),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            color: Colors.grey[100],
+            color:Theme.of(context).brightness == Brightness.dark ?Colors.black12.withOpacity(0.4): Colors.grey[100],
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 defulttext(
+                          context: context,
+
                   data: "    1111  **** **** **** ",
                   fSize: 16,
                   fw: FontWeight.w700,
@@ -53,11 +55,12 @@ class ProfilePayments extends StatelessWidget {
           SizedBox(height: 10),
           Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            color: Colors.grey[100],
+            color:Theme.of(context).brightness == Brightness.dark ?Colors.black12.withOpacity(0.4): Colors.grey[100],
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 defulttext(
+                  context: context,
                   data: "    3322  **** **** **** ",
                   fSize: 16,
                   fw: FontWeight.w700,

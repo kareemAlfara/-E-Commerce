@@ -47,12 +47,16 @@ Future<void> loadUserData() async {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               defulttext(
+                          context: context,
+
                 data: "المعلومات الشخصية",
                 fSize: 16,
                 fw: FontWeight.w700,
               ),
               SizedBox(height: 20),
               defulitTextFormField(
+                    context: context,
+
                 hintText: username,
                 suffixIcon: Container(
                   width: 12,
@@ -67,6 +71,8 @@ Future<void> loadUserData() async {
               SizedBox(height: 10),
         
               defulitTextFormField(
+                    context: context,
+
                 hintText: email,
                 suffixIcon: Container(
                   width: 12,
@@ -80,12 +86,16 @@ Future<void> loadUserData() async {
               ),
                 SizedBox(height: 10),
           defulttext(
+                          context: context,
+
                 data: "المعلومات الشخصي",
                 fSize: 14,
                 fw: FontWeight.w400,
               ),
               SizedBox(height: 10),
               defulitTextFormField(
+                    context: context,
+
                         // controller: cubit.passcontroller,
                         hintText: "كلمة المرور الحالية",
                         // isobscure: cubit.issecure,
@@ -108,6 +118,8 @@ Future<void> loadUserData() async {
                       ),
                         SizedBox(height: 10),
               defulitTextFormField(
+                    context: context,
+
                         // controller: cubit.passcontroller,
                         hintText: "كلمة المرور الجديدة",
                         // isobscure: cubit.issecure,
@@ -129,6 +141,8 @@ Future<void> loadUserData() async {
                         textInputAction: TextInputAction.done,
                       ),  SizedBox(height: 10),
               defulitTextFormField(
+                    context: context,
+
                         // controller: cubit.passcontroller,
                         hintText: ' تاكيد كلمة المرور ',
                         // isobscure: cubit.issecure,

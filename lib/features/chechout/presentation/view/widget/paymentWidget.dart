@@ -25,12 +25,14 @@ class Paymentwidget extends StatelessWidget {
               children: [
                 SizedBox(height: 22),
                 defulttext(
+                  context: context,
                   data: "أختار طريقه الدفع المناسبه :",
                   fw: FontWeight.bold,
                 ),
                 SizedBox(height: 11),
       
                 defulttext(
+                  context: context,
                   data: "من فضلك اختر طريقه الدفع المناسبه لك.",
                   fw: FontWeight.w700,
                   color: Colors.grey,
@@ -53,6 +55,8 @@ class Paymentwidget extends StatelessWidget {
                 ),
                 SizedBox(height: 22),
                 defulitTextFormField(
+                    context: context,
+
                   controller: cubit.paymentnamecontroller,
                   hintText: ' أسم حامل البطاقة',
                   validator: (value) {
@@ -65,6 +69,8 @@ class Paymentwidget extends StatelessWidget {
                 ),
                 SizedBox(height: 11),
                 defulitTextFormField(
+                    context: context,
+
                   controller: cubit.paymentcardNumcontroller,
                   hintText: ' رقم البطاقة ',
                   validator: (value) {
@@ -85,6 +91,8 @@ class Paymentwidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: defulitTextFormField(
+                    context: context,
+
                           controller: cubit.paymentDatecontroller,
                           hintText: ' تاريخ الصلاحية ',
                           validator: (value) {
@@ -99,6 +107,8 @@ class Paymentwidget extends StatelessWidget {
                       SizedBox(width: 8),
                       Expanded(
                         child: defulitTextFormField(
+                    context: context,
+                          
                           controller: cubit.paymentCVVcontroller,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -130,7 +140,9 @@ class Paymentwidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    defulttext(data: "جعل البطاقة افتراضية"),
+                    defulttext(
+                      context: context,
+                      data: "جعل البطاقة افتراضية"),
                   ],
                 ),
                 SizedBox(height: 22),

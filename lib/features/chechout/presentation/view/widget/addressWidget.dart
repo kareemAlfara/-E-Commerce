@@ -38,6 +38,8 @@ class _AddresswidgetState extends State<Addresswidget> {
                   padding: const EdgeInsets.all(8.0),
 
                   child: defulitTextFormField(
+                    context: context,
+
                     controller: cubit.namecontroller,
                     hintText: ' الإســـم كامل',
                     validator: (value) {
@@ -54,6 +56,8 @@ class _AddresswidgetState extends State<Addresswidget> {
                   padding: const EdgeInsets.all(8.0),
 
                   child: defulitTextFormField(
+                    context: context,
+
                     controller: cubit.emailcontroller,
                     hintText: 'البريد الإلكتروني',
                     validator: (value) {
@@ -70,6 +74,8 @@ class _AddresswidgetState extends State<Addresswidget> {
                   padding: const EdgeInsets.all(8.0),
 
                   child: defulitTextFormField(
+                    context: context,
+
                     controller: cubit.phonecontroller,
                     keyboardType: TextInputType.number,
                     hintText: ' رقم الهاتف',
@@ -86,6 +92,8 @@ class _AddresswidgetState extends State<Addresswidget> {
                   padding: const EdgeInsets.all(8.0),
 
                   child: defulitTextFormField(
+                    context: context,
+
                     controller: cubit.addresscontroller,
                     hintText: ' العنوان',
                     validator: (value) {
@@ -101,6 +109,8 @@ class _AddresswidgetState extends State<Addresswidget> {
                   padding: const EdgeInsets.all(8.0),
 
                   child: defulitTextFormField(
+                    context: context,
+
                     controller: cubit.citycontroller,
                     hintText: ' المدينة',
                     validator: (value) {
@@ -116,6 +126,8 @@ class _AddresswidgetState extends State<Addresswidget> {
                   padding: const EdgeInsets.all(8.0),
 
                   child: defulitTextFormField(
+                    context: context,
+
                     controller: cubit.homecontroller,
                     hintText: ' رقم الطابق - الشقة ',
                     validator: (value) {
@@ -141,6 +153,8 @@ class _AddresswidgetState extends State<Addresswidget> {
                       ),
                       SizedBox(width: 11),
                       defulttext(
+                          context: context,
+                      
                         data: "حفظ العنوان",
                         color: Colors.grey,
                         fw: FontWeight.w600,

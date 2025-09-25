@@ -1,4 +1,5 @@
 
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/FeatureItem.dart';
 
@@ -14,16 +15,14 @@ class FeatureList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 170,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return FeatureItem();
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(width: 8);
-        },
-      ),
+      child:Swiper(
+                itemCount: featureItems.length,
+                itemBuilder: (context, index) {
+          return FeatureItem(
+            model: featureItems[index],
+          ); },
+                autoplay: true,
+                duration: 188,),
     );
   }
 }

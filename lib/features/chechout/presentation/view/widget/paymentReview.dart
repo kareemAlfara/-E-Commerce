@@ -22,7 +22,9 @@ class PaymentReview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-              defulttext(data: "ملخص الطلب :", fSize: 14, fw: FontWeight.bold),
+              defulttext(
+                context: context,
+                data: "ملخص الطلب :", fSize: 14, fw: FontWeight.bold),
               SizedBox(height: 20),
               Container(
                 height: 150,
@@ -39,6 +41,8 @@ class PaymentReview extends StatelessWidget {
                       children: [
                         Expanded(
                           child: defulttext(
+                          context: context,
+
                             data: "المجموع الفرعي : ",
                             fSize: 14,
                             fw: FontWeight.bold,
@@ -46,8 +50,11 @@ class PaymentReview extends StatelessWidget {
                           ),
                         ),
                         defulttext(
+                          context: context,
+
                           data: " ${CheckupCubit.get(context).order!.cartitem.gettotalprice()} جنية",
                           fSize: 16,
+                          color: Colors.black,
                           fw: FontWeight.w700,
                         ),
                       ],
@@ -57,6 +64,8 @@ class PaymentReview extends StatelessWidget {
                       children: [
                         Expanded(
                           child: defulttext(
+                          context: context,
+
                             data: " التوصيل : ",
                             fSize: 14,
                             fw: FontWeight.bold,
@@ -64,12 +73,15 @@ class PaymentReview extends StatelessWidget {
                           ),
                         ),
                   state.paymentIndex==1  ?  defulttext(
+                          context: context,
+
                           data: " 0 جنية",
                           fSize: 16,
                           fw: FontWeight.w500,
                           color: Colors.grey,
                         ):
                           defulttext(
+                          context: context,
                           data: " 40 جنية",
                           fSize: 16,
                           fw: FontWeight.w500,
@@ -91,6 +103,8 @@ class PaymentReview extends StatelessWidget {
                       children: [
                         Expanded(
                           child: defulttext(
+                          context: context,
+
                             data: " الكلي : ",
                             fSize: 18,
                             fw: FontWeight.bold,
@@ -98,10 +112,16 @@ class PaymentReview extends StatelessWidget {
                           ),
                         ),
                       state.paymentIndex==1?    defulttext(
+                          context: context,
+
                           data: " ${(CheckupCubit.get(context).order!.cartitem.gettotalprice())} جنية",
                           fSize: 17,
                           fw: FontWeight.w700,
+                          color: Colors.black,
+
                         ): defulttext(
+                          context: context,
+
                           data: " ${(CheckupCubit.get(context).order!.cartitem.gettotalprice())+40} جنية",
                           fSize: 17,
                           fw: FontWeight.w700,
@@ -113,6 +133,8 @@ class PaymentReview extends StatelessWidget {
               ),
               SizedBox(height: 20),
               defulttext(
+                          context: context,
+
                 data: " يرجي تأكيد  طلبك",
                 fSize: 16,
                 fw: FontWeight.bold,
@@ -133,6 +155,8 @@ class PaymentReview extends StatelessWidget {
                       children: [
                         Expanded(
                           child: defulttext(
+                          context: context,
+
                             data: " وسيلة الدفع : ",
                             fSize: 14,
                             fw: FontWeight.bold,
@@ -141,6 +165,8 @@ class PaymentReview extends StatelessWidget {
                         ),
                         SvgPicture.asset(Assets.imagesEdit),
                         defulttext(
+                          context: context,
+
                           data: " تعديل ",
                           fw: FontWeight.w700,
                           color: Colors.grey,
@@ -152,6 +178,8 @@ class PaymentReview extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: "      **** **** **** 1234",
                           fSize: 16,
                           fw: FontWeight.w700,
@@ -194,6 +222,7 @@ class PaymentReview extends StatelessWidget {
                       children: [
                         Expanded(
                           child: defulttext(
+                            context: context,
                             data: "  عنوا التوصيل  : ",
                             fSize: 14,
                             fw: FontWeight.bold,
@@ -202,6 +231,7 @@ class PaymentReview extends StatelessWidget {
                         ),
                         SvgPicture.asset(Assets.imagesEdit),
                         defulttext(
+                          context: context,
                           data: " تعديل ",
                           fw: FontWeight.w700,
                           color: Colors.grey,
@@ -214,6 +244,7 @@ class PaymentReview extends StatelessWidget {
                         SvgPicture.asset(Assets.imagesLocation),
 
                         defulttext(
+                          context: context,
                           data: "     شارع 1, القاهرة, مصر",
                           fSize: 16,
                           fw: FontWeight.w700,

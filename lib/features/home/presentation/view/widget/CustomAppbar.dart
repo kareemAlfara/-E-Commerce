@@ -26,12 +26,10 @@ class CustomAppbarWidget extends StatelessWidget {
         FacebookSignin(AuthRepoImpl()),
       ),
       child: BlocConsumer<SigninCubit, Signinstate>(
-        listener: (context, state) {
-        
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           var cubit = context.read<SigninCubit>();
-  String name = 'Gester';
+          String name = 'Gester';
           if (state is SigninSuccessState) {
             name = state.user.name;
           } else if (state is GoogleSigninSuccessState) {
@@ -39,7 +37,7 @@ class CustomAppbarWidget extends StatelessWidget {
           } else if (state is FacebookSigninSuccessState) {
             name = state.user.name;
           }
-          
+
           return Row(
             children: [
               CircleAvatar(
@@ -50,36 +48,44 @@ class CustomAppbarWidget extends StatelessWidget {
               Column(
                 children: [
                   defulttext(
+                    context: context,
+
                     data: "صباح الخير !..",
                     fSize: 17,
                     color: Colors.grey[600],
                     fw: FontWeight.w600,
                   ),
                   SizedBox(height: 3),
-                FutureBuilder<String>(
-  future: cubit.getusername(),
-  builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return defulttext(
-        data: "...",
-        fSize: 19,
-        fw: FontWeight.w600,
-      );
-    }
-    if (snapshot.hasData) {
-      return defulttext(
-        data: snapshot.data!,
-        fSize: 19,
-        fw: FontWeight.w600,
-      );
-    }
-    return defulttext(
-      data: "ضيف جديد",
-      fSize: 19,
-      fw: FontWeight.w600,
-    );
-  },
-),
+                  FutureBuilder<String>(
+                    future: cubit.getusername(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return defulttext(
+                          context: context,
+
+                          data: "...",
+                          fSize: 19,
+                          fw: FontWeight.w600,
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        return defulttext(
+                          context: context,
+
+                          data: snapshot.data!,
+                          fSize: 19,
+                          fw: FontWeight.w600,
+                        );
+                      }
+                      return defulttext(
+                        context: context,
+
+                        data: "ضيف جديد",
+                        fSize: 19,
+                        fw: FontWeight.w600,
+                      );
+                    },
+                  ),
                 ],
               ),
               Spacer(),

@@ -30,6 +30,7 @@ environment:
 dependencies:
   app_links: ^3.5.0
   bloc: ^9.0.0
+  card_swiper: ^3.0.1
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   dots_indicator: ^4.0.1
@@ -42,6 +43,7 @@ dependencies:
   flutter_svg_provider: ^1.0.7
   fluttertoast: ^8.2.12
   google_sign_in: ^6.2.1
+  intl: ^0.20.2
   pin_code_fields: ^8.0.1
   provider: ^6.1.5+1
   shared_preferences: ^2.5.3

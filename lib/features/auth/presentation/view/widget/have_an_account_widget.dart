@@ -13,6 +13,8 @@ class have_an_account_widget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         defulttext(
+                          context: context,
+
           data: 'امتلك حساب بالفعل ',
           fSize: 16,
           color: Colors.grey,
@@ -27,6 +29,8 @@ class have_an_account_widget extends StatelessWidget {
           },
           style: TextButton.styleFrom(padding: EdgeInsets.zero),
           child: defulttext(
+                          context: context,
+
             data: 'تسجيل الدخول',
             fSize: 16,
             color: AppColors.lightPrimaryColor,

@@ -39,6 +39,8 @@ class ForgetPasswordView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: defulttext(
+                          context: context,
+                    
                     data:
                         "لا تقلق ، ما عليك سوى كتابة رقم هاتفك وسنرسل رمز التحقق.",
                     fSize: 18,
@@ -49,6 +51,8 @@ class ForgetPasswordView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: defulitTextFormField(
+                    context: context,
+
                     keyboardType: TextInputType.phone,
                     controller: cubit.phoneController,
                     hintText: 'رقم الهاتف',

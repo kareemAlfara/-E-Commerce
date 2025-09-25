@@ -51,12 +51,16 @@ class CardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: product.product.name,
-                          color: Colors.black,
+                          // color: Colors.black,
                           fw: FontWeight.bold,
                           fSize: 16,
                         ),
                         defulttext(
+                          context: context,
+
                           data: "${product.gettotalWight()}كم ",
                           color: Colors.amber,
                           fw: FontWeight.bold,
@@ -93,6 +97,8 @@ class CardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         defulttext(
+                          context: context,
+
                           data: product.quantity.toString(),
                           fSize: 18,
                           fw: FontWeight.w800,
@@ -146,6 +152,8 @@ class CardWidget extends StatelessWidget {
                         ),
 
                         defulttext(
+                          context: context,
+
                           data: "${product.grtprice()} جنية",
                           fSize: 17,
                           fw: FontWeight.bold,

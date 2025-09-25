@@ -42,6 +42,8 @@ class NewPassword extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: defulitTextFormField(
+                    context: context,
+
                         controller: cubit.passcontroller,
                         hintText: 'كلمة المرور',
                         isobscure: cubit.Newpasswordissecure1,
@@ -66,6 +68,8 @@ class NewPassword extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: defulitTextFormField(
+                    context: context,
+
                         controller: cubit.passcontroller,
                         hintText: 'تاكيد كلمة المرور ',
                         isobscure: cubit.Newpasswordissecure2,
@@ -103,8 +107,7 @@ class NewPassword extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
-                                title:
-                                 Container(
+                                title: Container(
                                   margin: EdgeInsets.only(top: 20),
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
@@ -138,6 +141,8 @@ class NewPassword extends StatelessWidget {
                                 content: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: defulttext(
+                                    context: context,
+
                                     data: "تم تغيير كلمة المرور بنجاح",
                                     fSize: 18,
                                     fw: FontWeight.w700,

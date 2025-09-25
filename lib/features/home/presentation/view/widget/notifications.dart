@@ -17,14 +17,20 @@ class Notifications extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  defulttext(data: "جديد ", fSize: 16, fw: FontWeight.w500),
+                  defulttext(
+                          context: context,
+                    
+                    data: "جديد ", fSize: 16, fw: FontWeight.w500),
                   CircleAvatar(
                     backgroundColor: Colors.tealAccent.withOpacity(0.5),
                     radius: 12,
-                    child: defulttext(data: "2", fSize: 14, fw: FontWeight.w500),
+                    child: defulttext(
+                      context: context,
+                      data: "2", fSize: 14, fw: FontWeight.w500),
                   ),
                   Spacer(),
                   defulttext(
+                    context: context,
                     data: " تحديد كل مقروء",
                     fSize: 16,
                     fw: FontWeight.w500,
@@ -47,12 +53,14 @@ class Notifications extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: defulttext(
+                          context: context,
                         data: "خصم 50% علي اسعار الفواكه بمناسبه العيد",
                       ),
                     ),
                     Spacer(),
                     
                     defulttext(
+                      context: context,
                       data: " 3 صباحاً",
                       fSize: 16,
                       fw: FontWeight.w500,

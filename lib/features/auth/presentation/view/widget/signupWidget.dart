@@ -58,6 +58,8 @@ await Prefs.saveUsernameToPrefs ();
                     padding: const EdgeInsets.all(8.0),
     
                     child: defulitTextFormField(
+                    context: context,
+
                       controller: cubit.namecontroller,
                       hintText: 'الاسم كامل',
                       validator: (value) {
@@ -74,6 +76,8 @@ await Prefs.saveUsernameToPrefs ();
                     padding: const EdgeInsets.all(8.0),
     
                     child: defulitTextFormField(
+                    context: context,
+
                       controller: cubit.emailcontroller,
                       hintText: 'البريد الإلكتروني',
                       validator: (value) {
@@ -89,6 +93,8 @@ await Prefs.saveUsernameToPrefs ();
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: defulitTextFormField(
+                    context: context,
+
                       controller: cubit.passcontroller,
                       hintText: 'كلمة المرور',
                       isobscure: cubit.issecure,

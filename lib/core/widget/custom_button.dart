@@ -27,6 +27,7 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: defulttext(
+          context: context,
           data: text,
           color: Colors.white,
           fSize: fSize,

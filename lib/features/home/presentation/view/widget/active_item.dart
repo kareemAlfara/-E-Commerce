@@ -13,7 +13,7 @@ class ActiveItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(left: 16),
         decoration: ShapeDecoration(
-          color: const Color(0xFFEEEEEE),
+          color: true ? Colors.grey.withOpacity(0.2) : const Color(0xFFEEEEEE),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
@@ -32,14 +32,14 @@ class ActiveItem extends StatelessWidget {
               ),
               child: Center(child: SvgPicture.asset(image)),
             ),
-            const SizedBox(
-              width: 4,
-            ),
+            const SizedBox(width: 4),
             Text(
               text,
-              style:
-                  TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.w600),
-            )
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
       ),

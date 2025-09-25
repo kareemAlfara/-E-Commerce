@@ -20,6 +20,8 @@ class OnboardPageview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               defulttext(
+                          context: context,
+
                 data: 'مرحباً بكم في ',
                 color: Colors.black,
                 fSize: 28,
@@ -54,6 +56,8 @@ class OnboardPageview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               defulttext(
+                          context: context,
+
                 data: 'ابحث وتسوق',
                 color: Colors.black,
                 fSize: 28,

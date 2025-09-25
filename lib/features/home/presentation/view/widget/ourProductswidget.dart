@@ -21,7 +21,10 @@ class ourProductswidget extends StatelessWidget {
               child: Image.asset(product.image),
             ),
           ),
-          defulttext(data: product.name, fSize: 16, fw: FontWeight.bold),
+          defulttext(
+                          context: context,
+            
+            data: product.name, fSize: 16, fw: FontWeight.bold),
         ],
       ),
     );

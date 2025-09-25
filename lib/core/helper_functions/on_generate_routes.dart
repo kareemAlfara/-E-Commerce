@@ -1,4 +1,6 @@
+import 'package:fruits_hub/main.dart' show themeNotifier;  // 👈 import the global
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/services/theme_notifier.dart';
 import 'package:fruits_hub/features/auth/presentation/view/forgetPassword.dart';
 import 'package:fruits_hub/features/auth/presentation/view/newpassword.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
@@ -29,8 +31,7 @@ class OnGenerateRoutes {
         return MaterialPageRoute(builder: (_) => const SplashView());
       case Onboarding.routeName:
         return MaterialPageRoute(builder: (_) => const Onboarding());
-      case Signinview.routeName:
-        return MaterialPageRoute(builder: (_) => const Signinview());
+    
       case Signupview.routeName:
         return MaterialPageRoute(builder: (_) => const Signupview());
       case ForgetPasswordView.routeName:
@@ -44,7 +45,13 @@ class OnGenerateRoutes {
       case TheMostSale.routeName:
         return MaterialPageRoute(builder: (_) => const TheMostSale());
       case Mainview.routeName:
-        return MaterialPageRoute(builder: (_) => const Mainview());
+        return MaterialPageRoute(
+          builder: (_) => Mainview(themeNotifier: themeNotifier), // 👈 use it
+        );
+      case Signinview.routeName:
+        return MaterialPageRoute(
+          builder: (_) => Signinview(themeNotifier: themeNotifier), // 👈 give it to Signin
+        );
       case Myorders.routeName:
         return MaterialPageRoute(builder: (_) => const Myorders());
       case ProfileDetailsScreen.routeName:

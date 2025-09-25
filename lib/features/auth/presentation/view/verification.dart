@@ -41,6 +41,8 @@ class VerificationView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: defulttext(
+                          context: context,
+
                     data:
                       "أدخل الرمز الذي أرسلناه إلى عنوان بريدك التالي\nMaxxx@email.com",
                     fSize: 18,

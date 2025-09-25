@@ -11,28 +11,41 @@ PreferredSizeWidget? defaultAppBar({
   bool automaticallyImplyLeading = true,
   bool isShowActions = true,
 }) => AppBar(
-  backgroundColor: Colors.white,
-  centerTitle: true ,
-  automaticallyImplyLeading: automaticallyImplyLeading ,
-  leading:automaticallyImplyLeading? IconButton(
-    onPressed: () {
-      Navigator.pop(context);
-    },
-    icon: const Icon(Icons.arrow_back_ios_new_outlined),
-  ):SizedBox.shrink(),
-  title: Text("$title",style: const TextStyle(fontFamily: 'Cairo',fontSize: 20,fontWeight: FontWeight.bold)),
+  backgroundColor: Theme.of(context).brightness == Brightness.dark
+      ? Colors.black12
+      : Colors.white,
+  centerTitle: true,
+  automaticallyImplyLeading: automaticallyImplyLeading,
+  leading: automaticallyImplyLeading
+      ? IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+        )
+      : SizedBox.shrink(),
+  title: Text(
+    "$title",
+    style: const TextStyle(
+      fontFamily: 'Cairo',
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
   actions: [
-  isShowActions?  GestureDetector(
-      onTap: () async {
-        // Handle notification tap
-      },
-      child: SvgPicture.asset(
-        Assets.imagesNotification,
-        fit: BoxFit.fill,
-        height: 30,
-        width: 30,
-      ),
-    ):SizedBox.shrink(),
+    isShowActions
+        ? GestureDetector(
+            onTap: () async {
+              // Handle notification tap
+            },
+            child: SvgPicture.asset(
+              Assets.imagesNotification,
+              fit: BoxFit.fill,
+              height: 30,
+              width: 30,
+            ),
+          )
+        : SizedBox.shrink(),
     SizedBox(width: 8),
   ],
 );
@@ -44,10 +57,11 @@ Future<dynamic> navigat(context, {required Widget widget}) =>
 
 Widget defulttext({
   TextDirection? textDirection,
+  required BuildContext context,
   TextAlign? textAlign,
   required String data,
   double? fSize,
-  Color? color = Colors.black,
+  Color? color,
   FontWeight? fw,
   int? maxLines = 4,
 }) => Text(
@@ -58,7 +72,12 @@ Widget defulttext({
   style: TextStyle(
     fontFamily: 'Cairo',
     fontSize: fSize,
-    color: color,
+    color:
+        color ??
+        (Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black),
+
     fontWeight: fw,
   ).copyWith(overflow: TextOverflow.ellipsis),
 );
@@ -68,10 +87,11 @@ Widget defulitTextFormField({
   String? hintText,
   Widget? suffixIcon,
   Widget? label,
+  bool? isdarkmode,
   TextInputType? keyboardType = TextInputType.multiline,
-  Color? textcolor = Colors.black,
+  Color? textcolor,
   // Color? bordercolor=Colors.white,
-  Color bordercolor = Colors.black,
+  Color? bordercolor,
   void Function(String)? onChanged,
   TextInputAction? textInputAction,
   TextEditingController? controller,
@@ -81,6 +101,7 @@ Widget defulitTextFormField({
   bool filled = false, // Important: enables fillColor
   Color? fillColor, // Inside color
   Widget? prefix,
+  required BuildContext context,
 }) => TextFormField(
   keyboardType: keyboardType,
   obscureText: isobscure,
@@ -90,7 +111,13 @@ Widget defulitTextFormField({
   validator: validator,
   textInputAction: textInputAction,
   controller: controller,
-  style: TextStyle(color: textcolor),
+  style: TextStyle(
+    color:
+        textcolor ??
+        (Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black),
+  ),
 
   decoration: InputDecoration(
     prefix: prefix,
@@ -101,16 +128,20 @@ Widget defulitTextFormField({
     suffixIcon: suffixIcon,
     label: label,
     labelText: title,
-    labelStyle: TextStyle(color: Colors.black),
+    labelStyle: TextStyle(color: textcolor),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
-      borderSide: BorderSide(color: bordercolor),
+      borderSide: BorderSide(color: bordercolor??(Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black),),
     ),
     // focusColor: Colors.white,
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
 
-      borderSide: BorderSide(color: bordercolor),
+      borderSide: BorderSide(color:bordercolor??(Theme.of(context).brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black),),
     ),
   ),
 );

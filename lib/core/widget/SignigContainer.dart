@@ -29,6 +29,7 @@ final String text;
             ),
             SizedBox(width: 66),
             defulttext(
+              context: context,
               data:text,
               fSize: 16,
               color: Colors.black,

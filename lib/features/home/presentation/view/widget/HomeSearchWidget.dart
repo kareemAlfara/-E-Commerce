@@ -23,7 +23,7 @@ class HomeSearchWidget extends StatelessWidget {
     offset: Offset(0, 1), // changes position of shadow
               ),
             ],
-            color:  Colors.white,
+            color: Theme.of(context).brightness == Brightness.dark ? Colors.black12.withOpacity(0.6) : Colors.white,
             borderRadius: BorderRadius.circular(12),
           
           ),
@@ -40,7 +40,10 @@ class HomeSearchWidget extends StatelessWidget {
           ),
               const SizedBox(width: 8),
               Expanded(
-    child: defulttext(data: "ابحث عن...", color: Colors.grey, fSize: 16),
+    child: defulttext(
+                          context: context,
+      
+      data: "ابحث عن...", color: Colors.grey, fSize: 16),
               ),
               GestureDetector(
     onTap: () {

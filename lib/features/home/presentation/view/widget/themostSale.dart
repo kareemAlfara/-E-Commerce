@@ -20,6 +20,8 @@ class TheMostSale extends StatelessWidget {
             children: [
               SizedBox(height: 10),
               defulttext(
+                          context: context,
+
                 data: "الأكثر مبيعاً",
                 color: Colors.black,
                 fw: FontWeight.bold,

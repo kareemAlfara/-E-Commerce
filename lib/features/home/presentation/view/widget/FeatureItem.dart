@@ -7,11 +7,11 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
 
 class FeatureItem extends StatelessWidget {
   const FeatureItem({
-    super.key,
+    super.key, required this.model,
   
   });
 
-
+final featuremodel model;
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +33,15 @@ class FeatureItem extends StatelessWidget {
              bottom: 0,
              right: itemWidth * .4,
              child: SvgPicture.asset(
-               Assets.imagesPageViewItem2Image,
+               model.imageUrl,
                fit: BoxFit.fill,
              ),
            ),
            Container(
              width: itemWidth * .5,
-             decoration: const BoxDecoration(
+             decoration:  BoxDecoration(
                image: DecorationImage(
-                 image: svg.Svg(Assets.imagesFeaturedItemBackground),
+                 image: svg.Svg(model.backgroundImage),
                  fit: BoxFit.fill,
                ),
              ),
@@ -56,14 +56,16 @@ class FeatureItem extends StatelessWidget {
                      height: 25,
                    ),
                      defulttext(
-                         data: "    عرض العيد",
+                          context: context,
+                         data: model.title,
                          color: Colors.white,
                          fw: FontWeight.w600,
                          fSize: 14,
                        ),
                        SizedBox(height: 10),
                        defulttext(
-                         data: "   خصم 25%",
+                          context: context,
+                         data: model.subtitle,
                          color: Colors.white,
                          fw: FontWeight.bold,
                          fSize: 20,
@@ -72,6 +74,7 @@ class FeatureItem extends StatelessWidget {
                        ElevatedButton(
                          onPressed: () {},
                          child: defulttext(
+                           context: context,
                            data: "تسوق الآن",
                            color: Color(0xff1B5E37),
                            fw: FontWeight.bold,
@@ -90,3 +93,33 @@ class FeatureItem extends StatelessWidget {
     );
   }
 }
+class featuremodel {
+  final String title;
+  final String subtitle;
+  final String imageUrl;
+  final String backgroundImage;
+
+  featuremodel({
+    required this.title,
+    required this.subtitle,
+    required this.imageUrl,
+    this.backgroundImage = Assets.imagesFeaturedItemBackground,
+  });
+}
+List<featuremodel> featureItems = [
+  featuremodel(
+    title: 'عرض العيد',
+    subtitle: 'خصم 25%',
+    imageUrl: Assets.imagesPageViewItem1Image,
+  ),
+  featuremodel(
+    title: 'عرض الصيف',
+    subtitle: 'خصم 30%',
+    imageUrl: Assets.imagesPageViewItem2Image,
+  ),
+  featuremodel(
+    title: 'عرض الشتاء',
+    subtitle: 'خصم 20%',
+    imageUrl: Assets.imagesPageViewItem2Image,
+  ),
+];

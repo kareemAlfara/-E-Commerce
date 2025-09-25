@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_hub/core/services/theme_notifier.dart';
 import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/CartView.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/costomerView.dart';
@@ -12,7 +13,9 @@ class mainviewbody extends StatelessWidget {
   const mainviewbody({
     super.key,
     required this.currentViewIndex,
+    required this.themeNotifier,
   });
+  final ThemeNotifier themeNotifier;
 
   final int currentViewIndex;
 
@@ -28,7 +31,7 @@ class mainviewbody extends StatelessWidget {
       CartView(
         cartItems:cartcubit.allcartEntiy.cartlist ,
       ),
-      CustomerView(),
+      CustomerView(themeNotifier: themeNotifier),
       ],
     );
   }

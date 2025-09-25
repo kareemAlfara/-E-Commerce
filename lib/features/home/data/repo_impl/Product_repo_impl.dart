@@ -59,6 +59,7 @@ class ProductRepoImpl implements ProductRepo {
       "user_id": user_id,
       "ratingcount": ratingcount,
     });
+    
     return Reviewmodel.fromJson({
       "descriptionmessage": descriptionmessage,
       "name": name,
@@ -66,6 +67,7 @@ class ProductRepoImpl implements ProductRepo {
       "user_id": user_id,
       "ratingcount": ratingcount,
     }).toEntity();
+
   }
 
   @override
@@ -102,34 +104,6 @@ class ProductRepoImpl implements ProductRepo {
       throw Exception("Failed to load products: $e");
     }
   }
-
-  // @override 
-  //  Future<favoritEntity> addfavorite({
-  //   required int product_id,
-  //   required String user_id,
-  //   required bool isfavorite,
-  // }) async {
-  // if (isfavorite) {
-  //   // Insert only if true (and avoid duplicates)
-  //   await Supabase.instance.client.from('favorite').upsert({
-  //     'product_id': product_id,
-  //     'user_id': user_id,
-  //     'isfavorite': true,
-  //   }, onConflict: 'user_id,product_id');
-  // } else {
-  //   // ❌ If false → delete the record entirely
-  //   await Supabase.instance.client
-  //       .from('favorite')
-  //       .delete()
-  //       .eq('user_id', user_id)
-  //       .eq('product_id', product_id);
-  // }
-  //   return Favoritmodel.fromJson({
-  //     "product_id": product_id,
-  //     "user_id": user_id,
-  //     "isfavorite": isfavorite,
-  //   }).toEntity();
-  // }
   @override
 Future<List<Productsentities>> getFavoriteProducts(String userId) async {
   final res = await Supabase.instance.client

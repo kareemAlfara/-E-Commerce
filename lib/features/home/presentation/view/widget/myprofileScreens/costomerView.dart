@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/services/theme_notifier.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/widget/custom_button.dart';
@@ -14,7 +15,8 @@ import 'package:svg_flutter/svg.dart';
 import 'ProfileDetailsScreen.dart';
 
 class CustomerView extends StatelessWidget {
-  const CustomerView({super.key});
+  const CustomerView({super.key, required this.themeNotifier});
+  final ThemeNotifier themeNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class CustomerView extends StatelessWidget {
           return MaterialPageRoute(
               builder: (_) => const Favoritepage());
         }
-        return MaterialPageRoute(builder: (_) =>  homeprofileScreen());
+        return MaterialPageRoute(builder: (_) =>  homeprofileScreen(themeNotifier: themeNotifier));
       },
     );
   }

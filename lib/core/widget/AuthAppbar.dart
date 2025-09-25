@@ -12,6 +12,7 @@ PreferredSizeWidget? AuthAppbar({required String title, required BuildContext co
     ),
     centerTitle: true,
     title: defulttext(
+      context: context,
       data: title,
       fw: FontWeight.w700,
       fSize: 20,

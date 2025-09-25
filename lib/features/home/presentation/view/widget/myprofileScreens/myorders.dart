@@ -32,7 +32,7 @@ class _MyordersState extends State<Myorders> {
                   Container(
                     width: double.infinity,
                     height: 100,
-                    color: Colors.grey[100],
+                    color:Theme.of(context).brightness == Brightness.dark  ?Colors.black12.withOpacity(0.6):Colors.grey[100],
                     child: myorderContainer(
                       image: Assets.imagefullbox,
                       istraking: istraking,
@@ -44,11 +44,15 @@ class _MyordersState extends State<Myorders> {
                       },
                       children: [
                         defulttext(
+                          context: context,
+                          
                           data: "رقم الطلب : 123456",
                           fw: FontWeight.bold,
                           color: Colors.black,
                         ),
                         defulttext(
+                          context: context,
+
                           data: "تم الطلب 22 اكتوبر 2022",
                           fw: FontWeight.bold,
                           color: Colors.grey,
@@ -57,17 +61,23 @@ class _MyordersState extends State<Myorders> {
                         Row(
                           children: [
                             defulttext(
+                          context: context,
+
                               data: "عدد الطلبات :   ",
                               fw: FontWeight.bold,
                               color: Colors.grey,
                             ),
                             defulttext(
+                          context: context,
+
                               data: "2",
                               fw: FontWeight.bold,
                               color: Colors.black,
                             ),
                             SizedBox(width: 15),
                             defulttext(
+                          context: context,
+
                               data: "150 جنيه",
                               fw: FontWeight.bold,
                               color: Colors.black,
@@ -170,7 +180,7 @@ Widget _buildStep(String title, bool isCompleted) {
             style: TextStyle(
               fontSize: 14,
               color: isCompleted ? Colors.black : Colors.grey,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ),

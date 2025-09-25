@@ -21,7 +21,17 @@ class productItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Container(
-        color: Colors.grey[100],
+      decoration: BoxDecoration(
+          color:Theme.of(context).brightness == Brightness.dark ?Colors.black12: Colors.grey[100],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: Offset(0, 2), // changes position of shadow
+            ),
+          ],
+      ),
         padding: EdgeInsets.all(11),
         width: MediaQuery.sizeOf(context).width * 0.4,
         child: Column(
@@ -40,8 +50,10 @@ class productItem extends StatelessWidget {
             ),
             // SizedBox(height: 12),
             defulttext(
+                          context: context,
+
               data: model.name,
-              color: Colors.black,
+              // color: Colors.black,
               fw: FontWeight.bold,
               fSize: 16,
             ),
@@ -50,6 +62,8 @@ class productItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 defulttext(
+                          context: context,
+
                   data: " ${model.price} جنيه / الكيلو",
                   color: Colors.orange[500],
                   fw: FontWeight.bold,

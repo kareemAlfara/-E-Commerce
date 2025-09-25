@@ -20,8 +20,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return Container(
       width: 375,
       height: 70,
-      decoration: const ShapeDecoration(
-        color: Colors.white,
+      decoration:  ShapeDecoration(
+        color: Theme.of(context).brightness == Brightness.dark ? Colors.black12 : Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
