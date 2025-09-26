@@ -11,6 +11,7 @@ import 'package:fruits_hub/features/auth/domain/usecases/signin_user.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/signout.dart';
 import 'package:fruits_hub/features/auth/presentation/SigninCubit/signin_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
+import 'package:fruits_hub/features/auth/presentation/view/widget/notif.dart';
 import 'package:fruits_hub/features/home/presentation/Cartcubit/cart_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/productcubit/product_cubit.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/ProfileDetailsScreen.dart';
@@ -19,6 +20,7 @@ import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScree
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/profilePayments.dart';
 import 'package:fruits_hub/features/home/presentation/view/widget/myprofileScreens/whoAre.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:svg_flutter/svg.dart';
 
 class homeprofileScreen extends StatefulWidget {
@@ -70,7 +72,7 @@ class _homeprofileScreenState extends State<homeprofileScreen> {
                   children: [
                     CircleAvatar(
                       radius: 33,
-                        backgroundImage: AssetImage(Assets.imagesProfileImage),
+                      backgroundImage: AssetImage(Assets.imagesProfileImage),
                       // backgroundColor: Colors.grey[200],
                       child: Padding(padding: const EdgeInsets.all(5.0)),
                     ),
@@ -97,7 +99,6 @@ class _homeprofileScreenState extends State<homeprofileScreen> {
                     Text(
                       username ?? "kareem",
                       style: TextStyle(
-                      
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
@@ -158,9 +159,19 @@ class _homeprofileScreenState extends State<homeprofileScreen> {
               icon: Transform.scale(
                 scale: 0.7,
                 child: Switch(
-                  value: true,
-                  onChanged: (value) {
-                    // cubit.changesaveAddress(value);
+  value: true,
+  onChanged: (value) async {
+
+    final receiverId = userId!; // 👈 not the current user
+    await AuthRepoImpl().notifyUser(receiverId, ' 🍓', 'Check our fresh fruits today!');
+  
+
+
+                    // await sendNotification(
+                    //   deviceToken: '296f410b-c14c-44ba-b3c5-292c86d6ead0',
+                    //   title: 'Special Offer 🍓',
+                    //   body: 'Check our fresh fruits today!',
+                    // );
                   },
                 ),
               ),

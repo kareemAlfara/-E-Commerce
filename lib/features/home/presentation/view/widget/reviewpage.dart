@@ -11,7 +11,7 @@ class ReviewPage extends StatelessWidget {
   const ReviewPage({super.key, required this.product});
   final Productsentities product;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: defaultAppBar(

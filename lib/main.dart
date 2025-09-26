@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/helper_functions/on_generate_routes.dart';
@@ -33,6 +34,8 @@ import 'package:app_links/app_links.dart';
 late final ThemeNotifier themeNotifier;
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+
   Bloc.observer = CustomBlocObserver();
   themeNotifier = ThemeNotifier();     
   await Supabase.initialize(
