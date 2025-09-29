@@ -9,6 +9,8 @@ import 'package:fruits_hub/features/auth/domain/usecases/signin_user.dart';
 import 'package:fruits_hub/features/auth/domain/usecases/signout.dart';
 import 'package:fruits_hub/features/auth/presentation/SigninCubit/signin_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
+import 'package:fruits_hub/features/home/data/models/notificationModdel.dart';
+import 'package:fruits_hub/features/home/presentation/view/widget/notifications.dart';
 import 'package:svg_flutter/svg.dart';
 
 import '../../Cartcubit/cart_cubit.dart';
@@ -91,11 +93,8 @@ class CustomAppbarWidget extends StatelessWidget {
               Spacer(),
               GestureDetector(
                 onTap: () async {
-                  await cubit.signOut();
-                  context.read<CartCubit>().allcartEntiy.cartlist.clear();
-                  Navigator.of(
-                    context,
-                  ).pushReplacementNamed(Signinview.routeName);
+                  
+                  navigat(context, widget: NotificationsListView());
                   // Handle notification tap
                 },
                 child: SvgPicture.asset(

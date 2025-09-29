@@ -60,7 +60,7 @@ class AuthRepoImpl implements AuthRepository {
       'user_id': uid,
       'token': fcmToken,
     },
-    onConflict: 'token',
+    // onConflict: 'token',
   );
 }
 
@@ -85,12 +85,12 @@ class AuthRepoImpl implements AuthRepository {
 
     final fcmToken = res?['token'] as String?;
     if (fcmToken != null) {
-      await sendNotification(
-        receiverId: receiverId,
-        deviceToken: fcmToken,
-        title: title,
-        body: body,
-      );
+      // await sendNotification(
+      //   receiverId: receiverId,
+      //   deviceToken: fcmToken,
+      //   title: title,
+      //   body: body,
+      // );
     } else {
       print("No token found for user $receiverId");
     }
@@ -159,7 +159,23 @@ class AuthRepoImpl implements AuthRepository {
       await prefs.setString('email', user.email!);
 
       print("User ID saved to SharedPreferences: $uid");
+        const adminId = "296f41b0-c14c-44ab-b3c5-292c86d6dea0"; 
+      await notifyUser(adminId, "New login", "${user.email} just signed in!");
     }
+    
+    final fcm = FirebaseMessaging.instance;
+    await fcm.requestPermission();
+    final fcmToken = await fcm.getToken();
+    
+  if (fcmToken != null) {
+  await Supabase.instance.client.from('device_tokens').upsert(
+    {
+      'user_id': uid,
+      'token': fcmToken,
+    },
+    // onConflict: 'user_id',
+  );
+}
     final existingUser = await Supabase.instance.client
         .from('users')
         .select('user_id')

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/services/Shared_preferences.dart';
-import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/core/utils/components.dart';
 import 'package:fruits_hub/core/utils/constants.dart';
 import 'package:fruits_hub/features/auth/presentation/view/signinView.dart';
